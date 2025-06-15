@@ -1,0 +1,15 @@
+/* buttonHover.css */
+
+/* Smooth transition on all buttons */
+button {
+  transition: all 0.3s ease;
+  cursor: pointer; /* makes it clear the element is clickable */
+}
+
+/* Hover effect: background color change, shadow, and slight scale */
+button:hover {
+  background-color: #4CAF50; /* nice green color */
+  color: white;              /* text color on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* subtle shadow */
+  transform: scale(1.05);    /* slightly enlarge */
+}
