@@ -1,6 +1,24 @@
-import "./index.css"
+import "../index.css";
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import pexels from '../assets/pexels.jpg'; // Ensure you have this image in your assets folder
 
-function App() {
+const Home = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token); 
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    alert("You have been logged out successfully.");
+    navigate('/');
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -23,27 +41,46 @@ function App() {
             </svg>
             <span className="text-xl font-bold">Civix</span>
           </div>
-          <nav className="hidden md:flex gap-6">
-            <a href="#features" className="text-sm font-medium hover:text-emerald-500 transition-colors">
-              Features
-            </a>
-            <a href="#how-it-works" className="text-sm font-medium hover:text-emerald-500 transition-colors">
-              How It Works
-            </a>
-            <a href="#testimonials" className="text-sm font-medium hover:text-emerald-500 transition-colors">
-              Testimonials
-            </a>
-            <a href="#download" className="text-sm font-medium hover:text-emerald-500 transition-colors">
-              Download
-            </a>
-          </nav>
+
+          {isLoggedIn && (
+            <nav className="md:flex gap-6">
+              <a href="#features" className="text-sm font-medium hover:text-emerald-500 transition-colors">
+                Features
+              </a>
+              <a href="#how-it-works" className="text-sm font-medium hover:text-emerald-500 transition-colors">
+                How It Works
+              </a>
+              <a href="#testimonials" className="text-sm font-medium hover:text-emerald-500 transition-colors">
+                Testimonials
+              </a>
+              <a href="#download" className="text-sm font-medium hover:text-emerald-500 transition-colors">
+                Download
+              </a>
+            </nav>
+          )}
+
           <div className="flex items-center gap-4">
-            <button className="hidden md:flex h-9 px-4 py-2 rounded-md text-sm font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground">
-              Log In
-            </button>
-            <button className="h-9 px-4 py-2 rounded-md text-sm font-medium bg-emerald-500 text-white hover:bg-emerald-600">
-              Sign Up
-            </button>
+            {!isLoggedIn ? (
+              <>
+                <Link to="/login">
+                  <button className="md:flex h-9 px-4 py-2 rounded-md text-sm font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground">
+                    Log In
+                  </button>
+                </Link>
+                <Link to="/signup">
+                  <button className="h-9 px-4 py-2 rounded-md text-sm font-medium bg-emerald-500 text-white hover:bg-emerald-600 cursor-pointer">
+                    Sign Up
+                  </button>
+                </Link>
+              </>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="h-9 px-4 py-2 rounded-md text-sm font-medium bg-emerald-500 text-white hover:bg-emerald-600"
+              >
+                Logout
+              </button>
+            )}
           </div>
         </div>
       </header>
@@ -145,7 +182,7 @@ function App() {
               <div className="flex items-center justify-center">
                 <div className="relative w-full max-w-[400px] aspect-[4/3] overflow-hidden rounded-lg border shadow-xl">
                   <img
-                    src="pexels.jpg"
+                    src={pexels}
                     alt="Civix App Interface"
                     className="object-cover w-full h-full"
                   />
@@ -755,4 +792,5 @@ function App() {
   )
 }
 
-export default App
+
+export default Home

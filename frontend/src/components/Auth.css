@@ -1,0 +1,87 @@
+.auth-container {
+  display: flex;
+  width: 90%;
+  max-width: 1000px;
+  height: 600px;
+  margin: auto;
+  margin-top: calc(50vh - 300px); /* vertical centering */
+  font-family: Arial, sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.auth-image {
+  flex: 1;
+  background-size: contain;    
+  background-position: center;
+  background-repeat: no-repeat; 
+transition: all 0.5s ease-in-out;
+}
+
+.login-image {
+  background-image: url('../assets/login.png');
+}
+
+.signup-image {
+  background-image: url('../assets/signup.png');
+}
+
+.auth-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 2rem;
+  transition: all 0.5s ease-in-out;
+}
+
+.auth-form h2 {
+  color: rgb(16 185 129);
+  transition: all 0.3s;
+}
+
+.auth-form form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.auth-form input {
+  padding: 18px 12px;      /* more vertical padding for taller inputs */
+  margin: 16px 0;          /* more vertical space between inputs */
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 1.1rem;       /* slightly bigger font */
+  transition: border-color 0.3s;
+}
+
+
+.auth-form button {
+  background-color: rgb(16 185 129);
+  color: white;
+  padding: 18px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-form button:hover {
+  background-color: rgb(24, 72, 27);
+}
+
+.auth-form p {
+  margin-top: 10px;
+  color: #333;
+}
+
+.auth-form a {
+  color: rgb(15, 212, 147);
+  text-decoration: none;
+  font-weight: bold;
+}
