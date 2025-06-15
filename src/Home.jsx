@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import "./Home.css";
 import { motion } from "framer-motion";
+import { div } from "framer-motion/client";
 
 function Home() {
+  const [activeFaq, setActiveFaq] = useState(null);
+  
   // Scroll animation effect
   useEffect(() => {
     const animateOnScroll = () => {
@@ -67,6 +70,37 @@ const fadeInVariants = {
     }
   }
 };
+
+
+// FAQ components
+const questions = [
+  {
+    id: 1,
+    question: "What is Civix?",
+    answer: "Civix is a civic engagement platform that allows citizens to report and track local issues in their communities, such as potholes, broken streetlights, and garbage collection problems."
+  },
+  {
+    id: 2,
+    question: "How do I report an issue?",
+    answer: "To report an issue, simply take a photo of the problem, add a description, and mark the location on the map. Your report will be sent to the appropriate city department for review."
+  },
+  {
+    id: 3,
+    question: "Is Civix free to use?",
+    answer: "Yes, Civix is completely free for citizens to use. There are no hidden fees or charges."
+  },
+  {
+    id: 4,
+    question: "How can I track the status of my report?",
+    answer: "You can track the status of your report through the Civix app or website. You will receive notifications when your issue is reviewed and resolved."
+  },
+  {
+    id: 5,
+    question: "Can I vote on issues reported by others?",
+    answer: "Yes! You can upvote issues reported by other citizens to help prioritize them for resolution."
+  }
+
+]
 
 
   return (
@@ -564,6 +598,77 @@ const fadeInVariants = {
       </motion.div>
     </div>
   </div>
+
+
+  {/* Features Section */}
+<motion.section 
+  id="features" 
+  className="bg-white py-12 md:py-24 lg:py-32"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, margin: "-100px" }}
+  variants={containerVariants}
+>
+  <div className="container px-4 mx-auto">
+    <motion.div className="flex flex-col items-center space-y-4 text-center w-full" variants={itemVariants}>
+      <div className="space-y-2">
+        <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
+          FAQs
+        </div>
+        <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+          Frequently Asked Questions
+        </h2>
+        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+            Find answers to commonly asked questions about Civix platform features and services.
+        </p>
+      </div>
+      <div className="w-full mt-8 max-w-3xl mx-auto">
+          {questions.map((faq) => (
+            <div key={faq.id}
+            className="py-2 mb-4 w-full overflow-hidden">
+              <button 
+              className="w-full text-left flex items-center justify-between px-4 py-2 bg-emerald-100 border-0 outline-none focus:outline-none focus:ring-0 shadow-none rounded-md hover:bg-emerald-100 transition-colors duration-300"
+              onClick={() => setActiveFaq(activeFaq === faq.id ? null : faq.id)}
+              >
+                <span className="font-medium">{faq.question}</span>
+                {activeFaq === faq.id ? (
+                  <svg 
+                    className="w-5 h-5 text-emerald-500 transition-transform duration-300"
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path>
+                  </svg>
+                ) : (
+                  <svg 
+                    className="w-5 h-5 text-emerald-500 transition-transform duration-300"
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                )}
+              </button>
+                {activeFaq === faq.id && (
+                  <motion.div
+                    className="mt-2 px-4 py-2 bg-white rounded-md shadow-sm"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}>
+                        <p className="text-left">{faq.answer}</p>
+                  </motion.div>
+                )}
+            </div>
+          ))}
+      </div>
+   </motion.div>
+  </div>
+
+</motion.section>
+
 </motion.section>        {/* Download Section */}
         <section id="download" className="py-12 md:py-24 lg:py-32 bg-emerald-50">
           <div className="container px-4 md:px-6">
