@@ -677,3 +677,25 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Site-wide container class for centering content */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Centered section content */
+.how-it-works .container,
+.testimonials .container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Section styling */
+.how-it-works,
+.testimonials {
+  text-align: center;
+  padding: 4rem 0; /* Optional for better vertical spacing */
+}
