@@ -450,7 +450,7 @@ const questions = [
   viewport={{ once: true }}
   variants={fadeInVariants}
 >
-  <div className="container px-4 md:px-6 mx-auto">
+  <div className="container">
     <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
       <div className="space-y-2">
         <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
@@ -520,7 +520,7 @@ const questions = [
   viewport={{ once: true }}
   variants={fadeInVariants}
 >
-  <div className="container px-4 md:px-6 mx-auto">
+  <div className="container">
     <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
       <div className="space-y-2">
         <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
