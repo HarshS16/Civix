@@ -678,6 +678,7 @@ body {
   transform: translateY(0);
 }
 
+
 /* --- ADD THIS TO ENABLE IMAGE HOVER ZOOM --- */
 .img-hover-zoom {
   transition: transform 0.3s cubic-bezier(.4,2,.3,1), box-shadow 0.3s;
@@ -696,4 +697,25 @@ body {
 .zoom-on-hover:hover {
   transform: scale(1.2);
   z-index: 10;
+
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 142.1 70.6% 45.3%;
+  --primary-foreground: 144.9 80.4% 10%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 142.4 71.8% 29.2%;
+
 }

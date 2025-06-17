@@ -1,11 +1,24 @@
+import DarkModeToggle from './DarkModeToggle';
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import "./Home.css";
 import { motion } from "framer-motion";
+import { AnimatePresence } from 'framer-motion';
+
 import { div } from "framer-motion/client";
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronUp } from 'lucide-react';
+
 
 function Home() {
+
   const [activeFaq, setActiveFaq] = useState(null);
+
+
+  const [hoveredFaq, setHoveredFaq] = useState(null);
+  const [showButton, setShowButton] = useState(false);
+
+
 
   // Scroll animation effect
   useEffect(() => {
@@ -28,15 +41,45 @@ function Home() {
     return () => window.removeEventListener("scroll", animateOnScroll);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show button when user scrolls down 300px
+      if (window.pageYOffset > 300) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
+
         staggerChildren: 0.2,
       },
     },
+
+        staggerChildren: 0.2
+      }
+    }
+
   };
 
   const itemVariants = {
@@ -45,9 +88,15 @@ function Home() {
       y: 0,
       opacity: 1,
       transition: {
+
         duration: 0.5,
       },
     },
+
+        duration: 0.5
+      }
+    }
+
   };
 
   const cardVariants = {
@@ -56,9 +105,15 @@ function Home() {
       scale: 1,
       opacity: 1,
       transition: {
+
         duration: 0.5,
       },
     },
+
+        duration: 0.5
+      }
+    }
+
   };
 
   const fadeInVariants = {
@@ -66,6 +121,7 @@ function Home() {
     visible: {
       opacity: 1,
       transition: {
+
         duration: 0.8,
       },
     },
@@ -105,8 +161,61 @@ function Home() {
     },
   ];
 
+        duration: 0.8
+      }
+    }
+  };
+
+
+  // FAQ components
+  const faqs = [
+    {
+      id: 1,
+      question: "What is Civix?",
+      answer: "Civix is a civic engagement platform that allows citizens to report and track local issues in their communities, such as potholes, broken streetlights, and garbage collection problems."
+    },
+    {
+      id: 2,
+      question: "How do I report an issue?",
+      answer: "To report an issue, simply take a photo of the problem, add a description, and mark the location on the map. Your report will be sent to the appropriate city department for review."
+    },
+    {
+      id: 3,
+      question: "Is Civix free to use?",
+      answer: "Yes, Civix is completely free for citizens to use. There are no hidden fees or charges."
+    },
+    {
+      id: 4,
+      question: "How can I track the status of my report?",
+      answer: "You can track the status of your report through the Civix app or website. You will receive notifications when your issue is reviewed and resolved."
+    },
+    {
+      id: 5,
+      question: "Can I vote on issues reported by others?",
+      answer: "Yes! You can upvote issues reported by other citizens to help prioritize them for resolution."
+    }
+
+  ]
+
+//Logijn state management
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token); 
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    alert("You have been logged out successfully.");
+    navigate('/');
+  };
+
+
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* SEO Optimization */}
       <Helmet>
         <title>Civix | Report Local Issues & Improve Your Community</title>
@@ -157,7 +266,7 @@ function Home() {
       </Helmet>
 
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 animate-fade-down">
+      <header className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-900/60 animate-fade-down">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
             <svg
@@ -177,6 +286,7 @@ function Home() {
             </svg>
             <span className="text-xl font-bold">Civix</span>
           </div>
+
           <nav className="hidden md:flex gap-6">
             <a
               href="#features"
@@ -203,17 +313,52 @@ function Home() {
               Download
             </a>
           </nav>
+
+          {isLoggedIn && (
+            <nav className="md:flex gap-6">
+              <a href="#features" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+                Features
+              </a>
+              <a href="#how-it-works" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+                How It Works
+              </a>
+              <a href="#testimonials" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+                Testimonials
+              </a>
+              <a href="#download" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+                Download
+              </a>
+            </nav>
+          )}
+
+
           <div className="flex items-center gap-4">
-            <button className="hidden md:flex h-9 px-4 py-2 rounded-md text-sm font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors duration-300">
-              Log In
-            </button>
-            <button className="h-9 px-4 py-2 rounded-md text-sm font-medium bg-emerald-500 text-white hover:bg-emerald-600 transition-colors duration-300">
-              Sign Up
-            </button>
+            {!isLoggedIn ? (
+              <>
+                <Link to="/login">
+                  <button className="md:flex flex h-10 items-center justify-center rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring duration-300">
+                    Log In
+                  </button>
+                </Link>
+                <Link to="/signup">
+                  <button className="h-9 px-4 py-2 rounded-md text-sm font-medium bg-emerald-500 text-white hover:bg-emerald-600 cursor-pointer duration-300">
+                    Sign Up
+                  </button>
+                </Link>
+              </>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="h-9 px-4 py-2 rounded-md text-sm font-medium bg-emerald-500 text-white hover:bg-emerald-600"
+              >
+                Logout
+              </button>
+            )}
+            <DarkModeToggle />
           </div>
         </div>
       </header>
-
+      
       <main className="flex-1">
         {/* Hero Section */}
         <section className="py-12 md:py-24 lg:py-32 xl:py-48">
@@ -227,10 +372,16 @@ function Home() {
                       Make Your City Better.
                     </span>
                   </h1>
+
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
                     Civix helps citizens report and track local civic issues
                     like potholes, broken lights, and garbage collection
                     problems.
+
+                  <p className="max-w-[600px] text-gray-600 dark:text-gray-300 md:text-xl">
+                    Civix helps citizens report and track local civic issues like potholes, broken lights, and garbage
+                    collection problems.
+
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -252,7 +403,7 @@ function Home() {
                       <path d="m12 5 7 7-7 7" />
                     </svg>
                   </button>
-                  <button className="flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring duration-300">
+                  <button className="flex h-10 items-center justify-center rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring duration-300">
                     Learn More
                   </button>
                 </div>
@@ -327,20 +478,32 @@ function Home() {
             </div>
           </div>
         </section>
+
         {/* Features Section */}
         <motion.section
           id="features"
           className="bg-slate-50 py-12 md:py-24 lg:py-32"
+
+
+        {/* Features Section */}
+        <motion.section
+          id="features"
+          className="bg-slate-50 dark:bg-gray-800 py-12 md:py-24 lg:py-32"
+
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
         >
           <div className="container px-4 md:px-6 mx-auto">
+
             <motion.div
               className="flex flex-col items-center justify-center space-y-4 text-center"
               variants={itemVariants}
             >
+
+            <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
+
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
                   Features
@@ -348,9 +511,14 @@ function Home() {
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
                   Everything you need to improve your community
                 </h2>
+
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Civix provides a comprehensive platform for citizens and city
                   workers to collaborate on local issues.
+
+                <p className="max-w-[600px] text-gray-600 dark:text-gray-300 md:text-xl">
+                  Civix provides a comprehensive platform for citizens and city workers to collaborate on local issues.
+
                 </p>
               </div>
             </motion.div>
@@ -382,6 +550,7 @@ function Home() {
                       </svg>
                     ),
                     title: "Report Issues",
+
                     description:
                       "Easily report problems with photos, location data, and detailed descriptions.",
                     features: [
@@ -389,6 +558,10 @@ function Home() {
                       "Map integration",
                       "Categorized issues",
                     ],
+
+                    description: "Easily report problems with photos, location data, and detailed descriptions.",
+                    features: ["Photo uploads", "Map integration", "Categorized issues"]
+
                   },
                   {
                     icon: (
@@ -408,7 +581,7 @@ function Home() {
                         <polyline points="16 7 22 7 22 13" />
                       </svg>
                     ),
-                    title: "Track Progress",
+
                     description:
                       "Follow the status of your reports from submission to resolution.",
                     features: [
@@ -416,6 +589,10 @@ function Home() {
                       "Status notifications",
                       "Resolution timeline",
                     ],
+
+                    description: "Follow the status of your reports from submission to resolution.",
+                    features: ["Real-time updates", "Status notifications", "Resolution timeline"]
+
                   },
                   {
                     icon: (
@@ -438,6 +615,7 @@ function Home() {
                       </svg>
                     ),
                     title: "Community Voting",
+
                     description:
                       "Upvote issues in your area to help prioritize what matters most.",
                     features: [
@@ -450,17 +628,31 @@ function Home() {
                   <motion.div
                     key={index}
                     className="w-full max-w-sm rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md"
+
+                    description: "Upvote issues in your area to help prioritize what matters most.",
+                    features: ["Issue upvoting", "Trending issues", "Community feedback"]
+                  }
+                ].map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    className="w-full max-w-sm rounded-lg border bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm transition-all duration-300 hover:shadow-md"
+
                     variants={cardVariants}
                     whileHover={{ y: -5 }}
                   >
                     <div className="flex flex-col space-y-1.5 p-6">
                       {feature.icon}
+
                       <h3 className="text-lg font-semibold leading-none tracking-tight">
                         {feature.title}
                       </h3>
                       <p className="text-sm text-muted-foreground">
                         {feature.description}
                       </p>
+
+                      <h3 className="text-lg font-semibold leading-none tracking-tight">{feature.title}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{feature.description}</p>
+
                     </div>
                     <div className="p-6 pt-0">
                       <ul className="grid gap-2 text-sm">
@@ -492,6 +684,10 @@ function Home() {
             </div>
           </div>
         </motion.section>
+
+
+
+
         {/* How It Works Section */}
         <motion.section
           id="how-it-works"
@@ -502,10 +698,14 @@ function Home() {
           variants={fadeInVariants}
         >
           <div className="container px-4 md:px-6 mx-auto">
+
             <motion.div
               className="flex flex-col items-center justify-center space-y-4 text-center"
               variants={itemVariants}
             >
+
+            <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
+
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
                   How It Works
@@ -513,9 +713,14 @@ function Home() {
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
                   Simple process, powerful results
                 </h2>
+
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Civix makes it easy to report issues and track their
                   resolution in just a few simple steps.
+
+                <p className="max-w-[600px] text-gray-600 dark:text-gray-300 md:text-xl">
+                  Civix makes it easy to report issues and track their resolution in just a few simple steps.
+
                 </p>
               </div>
             </motion.div>
@@ -531,21 +736,34 @@ function Home() {
                   {
                     step: "1",
                     title: "Report an Issue",
+
                     description:
                       "Take a photo, mark the location on the map, and add a description of the problem.",
+
+                    description: "Take a photo, mark the location on the map, and add a description of the problem."
+
                   },
                   {
                     step: "2",
                     title: "City Review",
+
                     description:
                       "City workers review and prioritize issues based on severity and community votes.",
+
+                    description: "City workers review and prioritize issues based on severity and community votes."
+
                   },
                   {
                     step: "3",
                     title: "Track Resolution",
+
                     description:
                       "Follow the progress of your report from submission to completion with real-time updates.",
                   },
+
+                    description: "Follow the progress of your report from submission to completion with real-time updates."
+                  }
+
                 ].map((step, index) => (
                   <motion.div
                     key={index}
@@ -568,20 +786,32 @@ function Home() {
             </div>
           </div>
         </motion.section>
+
         {/* Testimonials Section */}
         <motion.section
           id="testimonials"
           className="bg-slate-50 py-12 md:py-24 lg:py-32"
+
+
+        {/* Testimonials Section */}
+        <motion.section
+          id="testimonials"
+          className="bg-slate-50 dark:bg-gray-800 py-12 md:py-24 lg:py-32"
+
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInVariants}
         >
           <div className="container px-4 md:px-6 mx-auto">
+
             <motion.div
               className="flex flex-col items-center justify-center space-y-4 text-center"
               variants={itemVariants}
             >
+
+            <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
+
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
                   Testimonials
@@ -589,7 +819,11 @@ function Home() {
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
                   Trusted by communities everywhere
                 </h2>
+
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+
+                <p className="max-w-[600px] text-gray-600 dark:text-gray-300 md:text-xl">
+
                   See what citizens and city workers are saying about Civix.
                 </p>
               </div>
@@ -604,6 +838,7 @@ function Home() {
               >
                 {[
                   {
+
                     quote:
                       "I reported a pothole on my street and it was fixed within a week. The ability to track progress kept me informed the whole time.",
                     name: "Sarah Johnson",
@@ -621,6 +856,23 @@ function Home() {
                   <motion.div
                     key={index}
                     className="w-full max-w-md rounded-lg border bg-white text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md"
+
+                    quote: "I reported a pothole on my street and it was fixed within a week. The ability to track progress kept me informed the whole time.",
+                    name: "Sarah Johnson",
+                    role: "Resident, Portland",
+                    profilePic: "/profiles/sarah.jpg"
+                  },
+                  {
+                    quote: "As a city worker, Civix has transformed how we manage local issues. The dashboard makes it easy to prioritize and track our work.",
+                    name: "Michael Rodriguez",
+                    role: "Public Works, Austin",
+                    profilePic: "/profiles/michael.jpg"
+                  }
+                ].map((testimonial, index) => (
+                  <motion.div
+                    key={index}
+                    className="w-full max-w-md rounded-lg border bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm transition-all duration-300 hover:shadow-md"
+
                     variants={cardVariants}
                     whileHover={{ y: -5 }}
                   >
@@ -656,9 +908,13 @@ function Home() {
                           </div>
                           <div>
                             <p className="font-semibold">{testimonial.name}</p>
+
                             <p className="text-sm text-muted-foreground">
                               {testimonial.role}
                             </p>
+
+                            <p className="text-sm text-gray-600 dark:text-gray-300">{testimonial.role}</p>
+
                           </div>
                         </div>
                       </div>
@@ -666,6 +922,7 @@ function Home() {
                   </motion.div>
                 ))}
               </motion.div>
+
             </div>
           </div>
 
@@ -761,6 +1018,131 @@ function Home() {
           id="download"
           className="py-12 md:py-24 lg:py-32 bg-emerald-50"
         >
+
+            </div>
+          </div>
+
+
+          {/* FAQ Section */}
+          <motion.section
+            id="faq"
+            className="py-12 md:py-24 lg:py-32"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInVariants}
+          >
+            <div className="container px-4 md:px-6 mx-auto">
+              <motion.div
+                className="flex flex-col items-center justify-center space-y-4 text-center"
+                variants={itemVariants}
+              >
+                <div className="space-y-2">
+                  <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
+                    FAQs
+                  </div>
+                  <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight dark:text-white">
+                    Frequently Asked Questions
+                  </h2>
+                  <p className="max-w-[600px] text-gray-600 dark:text-gray-300 md:text-xl">
+                    Find answers to commonly asked questions about Civix platform features and services.
+                  </p>
+                </div>
+              </motion.div>
+
+              <div className="flex justify-center">
+                <motion.div
+                  className="max-w-4xl w-full space-y-4 py-12"
+                  variants={fadeInVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  {faqs.map((faq, index) => (
+                    <motion.div
+                      key={faq.id}
+                      className="group"
+                      variants={itemVariants}
+                      onHoverStart={() => setHoveredFaq(faq.id)}
+                      onHoverEnd={() => setHoveredFaq(null)}
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className="border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden bg-white dark:bg-gray-800">
+                        <div className="px-4 py-4 md:px-6 md:py-5">
+                          <div className="flex justify-between items-center gap-4">
+                            <h3 className="font-medium text-lg text-gray-900 dark:text-white leading-relaxed">
+                              {faq.question}
+                            </h3>
+
+                            <motion.div
+                              className="flex-shrink-0 w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center"
+                              animate={{
+                                rotate: hoveredFaq === faq.id ? 180 : 0
+                              }}
+                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                            >
+                              <svg
+                                className="w-4 h-4 text-emerald-600 group-hover:text-white transition-colors duration-300"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M19 9l-7 7-7-7"
+                                />
+                              </svg>
+                            </motion.div>
+                          </div>
+
+                          <AnimatePresence mode="wait">
+                            {hoveredFaq === faq.id && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                                animate={{
+                                  opacity: 1,
+                                  height: "auto",
+                                  marginTop: 16
+                                }}
+                                exit={{
+                                  opacity: 0,
+                                  height: 0,
+                                  marginTop: 0
+                                }}
+                                transition={{
+                                  duration: 0.3,
+                                  ease: "easeInOut"
+                                }}
+                                className="overflow-hidden"
+                              >
+                                <div className="border-t border-gray-100 dark:border-gray-700 pt-4">
+                                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                    {faq.answer}
+                                  </p>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+          </motion.section>
+
+
+        </motion.section>
+
+
+        {/* Download Section */}
+        <section id="download" className="py-12 md:py-24 lg:py-32 bg-emerald-50 dark:bg-gray-800">
+
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="flex flex-col justify-center space-y-4 animate-on-scroll">
@@ -768,9 +1150,14 @@ function Home() {
                   <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
                     Ready to improve your community?
                   </h2>
+
                   <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
                     Download the Civix app today and start making a difference
                     in your neighborhood.
+
+                  <p className="max-w-[600px] text-gray-600 dark:text-gray-300 md:text-xl">
+                    Download the Civix app today and start making a difference in your neighborhood.
+
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -852,14 +1239,6 @@ function Home() {
               </div>
               <div className="flex items-center justify-center lg:justify-end animate-on-scroll">
                 <div className="relative w-full max-w-[400px]">
-                  <div className="overflow-hidden rounded-lg border shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]">
-                    <img
-                      src="public/civix-mobile.png"
-                      alt="Civix App on Mobile"
-                      className="w-full h-auto object-cover"
-                      loading="lazy"
-                    />
-                  </div>
                   <div className="absolute -bottom-6 -left-6 h-24 w-24 rounded-lg border bg-background p-2 shadow-lg transition-all duration-300 hover:scale-110">
                     <div className="flex h-full w-full items-center justify-center rounded bg-emerald-100">
                       <svg
@@ -887,7 +1266,7 @@ function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t bg-slate-50">
+      <footer className="border-t border-gray-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-800 dark:shadow-sm">
         <div className="container flex flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between md:py-12">
           <div className="flex items-center gap-2">
             <svg
@@ -905,9 +1284,10 @@ function Home() {
               <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
               <circle cx="12" cy="10" r="3" />
             </svg>
-            <span className="text-xl font-bold">Civix</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">Civix</span>
           </div>
           <nav className="flex flex-wrap gap-4 md:gap-6">
+
             <a
               href="#"
               className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
@@ -936,14 +1316,33 @@ function Home() {
               href="#"
               className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
             >
+
+            <a href="#" className="text-sm font-medium text-gray-600 dark:text-gray-100 hover:text-emerald-500 transition-colors duration-300">
+              About
+            </a>
+            <a href="#" className="text-sm font-medium text-gray-600 dark:text-gray-100 hover:text-emerald-500 transition-colors duration-300">
+              Features
+            </a>
+            <a href="#" className="text-sm font-medium text-gray-600 dark:text-gray-100 hover:text-emerald-500 transition-colors duration-300">
+              Privacy
+            </a>
+            <a href="#" className="text-sm font-medium text-gray-600 dark:text-gray-100 hover:text-emerald-500 transition-colors duration-300">
+              Terms
+            </a>
+            <a href="#" className="text-sm font-medium text-gray-600 dark:text-gray-100 hover:text-emerald-500 transition-colors duration-300">
+
               Contact
             </a>
           </nav>
           <div className="flex items-center gap-4">
+
             <a
               href="#"
               className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
             >
+
+            <a href="#" className="text-gray-600 dark:text-gray-100 hover:text-emerald-500 hover:scale-110 transition-all duration-300">
+
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -963,12 +1362,63 @@ function Home() {
             </a>
           </div>
         </div>
-        <div className="container py-4 md:py-6">
-          <p className="text-center text-sm text-muted-foreground">
+        <div className="container py-4 md:py-6 bg-slate-100 dark:bg-gray-900">
+          <p className="text-center text-sm text-gray-600 dark:text-gray-200">
             © {new Date().getFullYear()} Civix. All rights reserved.
           </p>
         </div>
       </footer>
+      {showButton && (
+        <button
+          onClick={scrollToTop}
+          className={`
+            fixed bottom-6 right-6 z-50
+            bg-emerald-500 hover:bg-white
+            text-white hover:text-emerald-500 
+            rounded-full p-4 
+            shadow-lg hover:shadow-2xl
+            border-2 border-transparent hover:border-emerald-500
+            transition-all duration-300 ease-in-out
+            transform hover:scale-110 active:scale-95
+            focus:outline-none focus:ring-4 focus:ring-emerald-300
+            backdrop-blur-sm
+            animate-fadeIn hover:animate-pulse
+          `}
+          aria-label="Scroll to top"
+        >
+          <ChevronUp size={28} className="transition-transform duration-200 hover:translate-y-[-2px]" />
+        </button>
+      )}
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-6px);
+          }
+        }
+        
+        .animate-fadeIn {
+          animation: fadeIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .animate-fadeIn:hover {
+          animation: float 2s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 }

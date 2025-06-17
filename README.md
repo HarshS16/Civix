@@ -49,6 +49,25 @@ Cloudinary – for image uploads and hosting
 
 Role-Based Authentication – Secure login for Citizens and Admins
 
+🌗 Dark Mode Toggle
+
+Civix supports a light and dark mode toggle to enhance user experience in different lighting conditions. This feature allows users to switch between a light theme and a dark theme with a single click.
+
+🔧 Setup Details:
+- `darkMode: 'class'` is enabled in `tailwind.config.js`
+- User preference is saved using `localStorage`
+- Toggle switch is implemented in `src/ThemeToggle.jsx`
+- Imported and used inside `Home.jsx`, beside the "Sign Up" button
+
+### How to Use
+- **Locate the Toggle Button**: In the header of the app, look for the toggle button displaying a moon (🌙) or sun (☀️) icon.
+- **Switch Modes**:
+  - If the moon icon (🌙) is visible, click it to switch to dark mode.
+  - If the sun icon (☀️) is visible, click it to switch to light mode.
+- **Visual Changes**: The app will update instantly:
+  - **Light Mode**: White or light gray backgrounds (e.g., `bg-slate-50`) with dark text (e.g., `text-gray-900`).
+  - **Dark Mode**: Dark gray backgrounds (e.g., `dark:bg-gray-800`) with light text (e.g., `dark:text-gray-100`).
+
 
 🚀 Getting Started
 Prerequisites
