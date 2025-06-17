@@ -677,3 +677,23 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* --- ADD THIS TO ENABLE IMAGE HOVER ZOOM --- */
+.img-hover-zoom {
+  transition: transform 0.3s cubic-bezier(.4,2,.3,1), box-shadow 0.3s;
+  cursor: zoom-in;
+}
+.img-hover-zoom:hover {
+  transform: scale(1.5);
+  z-index: 2;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+.zoom-on-hover {
+  transition: transform 0.3s cubic-bezier(.4,2,.3,1);
+  will-change: transform;
+}
+.zoom-on-hover:hover {
+  transform: scale(1.2);
+  z-index: 10;
+}

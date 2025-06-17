@@ -6,16 +6,16 @@ import { div } from "framer-motion/client";
 
 function Home() {
   const [activeFaq, setActiveFaq] = useState(null);
-  
+
   // Scroll animation effect
   useEffect(() => {
     const animateOnScroll = () => {
       const elements = document.querySelectorAll(".animate-on-scroll");
-      
+
       elements.forEach((element) => {
         const elementTop = element.getBoundingClientRect().top;
         const windowHeight = window.innerHeight;
-        
+
         if (elementTop < windowHeight - 100) {
           element.classList.add("animate-fade-up");
         }
@@ -24,119 +24,134 @@ function Home() {
 
     window.addEventListener("scroll", animateOnScroll);
     animateOnScroll(); // Run once on load
-    
+
     return () => window.removeEventListener("scroll", animateOnScroll);
   }, []);
 
   // Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
 
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5
-    }
-  }
-};
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
 
-const cardVariants = {
-  hidden: { scale: 0.95, opacity: 0 },
-  visible: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      duration: 0.5
-    }
-  }
-};
+  const cardVariants = {
+    hidden: { scale: 0.95, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
 
-const fadeInVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.8
-    }
-  }
-};
+  const fadeInVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+      },
+    },
+  };
 
-
-// FAQ components
-const questions = [
-  {
-    id: 1,
-    question: "What is Civix?",
-    answer: "Civix is a civic engagement platform that allows citizens to report and track local issues in their communities, such as potholes, broken streetlights, and garbage collection problems."
-  },
-  {
-    id: 2,
-    question: "How do I report an issue?",
-    answer: "To report an issue, simply take a photo of the problem, add a description, and mark the location on the map. Your report will be sent to the appropriate city department for review."
-  },
-  {
-    id: 3,
-    question: "Is Civix free to use?",
-    answer: "Yes, Civix is completely free for citizens to use. There are no hidden fees or charges."
-  },
-  {
-    id: 4,
-    question: "How can I track the status of my report?",
-    answer: "You can track the status of your report through the Civix app or website. You will receive notifications when your issue is reviewed and resolved."
-  },
-  {
-    id: 5,
-    question: "Can I vote on issues reported by others?",
-    answer: "Yes! You can upvote issues reported by other citizens to help prioritize them for resolution."
-  }
-
-]
-
+  // FAQ components
+  const questions = [
+    {
+      id: 1,
+      question: "What is Civix?",
+      answer:
+        "Civix is a civic engagement platform that allows citizens to report and track local issues in their communities, such as potholes, broken streetlights, and garbage collection problems.",
+    },
+    {
+      id: 2,
+      question: "How do I report an issue?",
+      answer:
+        "To report an issue, simply take a photo of the problem, add a description, and mark the location on the map. Your report will be sent to the appropriate city department for review.",
+    },
+    {
+      id: 3,
+      question: "Is Civix free to use?",
+      answer:
+        "Yes, Civix is completely free for citizens to use. There are no hidden fees or charges.",
+    },
+    {
+      id: 4,
+      question: "How can I track the status of my report?",
+      answer:
+        "You can track the status of your report through the Civix app or website. You will receive notifications when your issue is reviewed and resolved.",
+    },
+    {
+      id: 5,
+      question: "Can I vote on issues reported by others?",
+      answer:
+        "Yes! You can upvote issues reported by other citizens to help prioritize them for resolution.",
+    },
+  ];
 
   return (
     <div className="flex min-h-screen flex-col">
       {/* SEO Optimization */}
       <Helmet>
         <title>Civix | Report Local Issues & Improve Your Community</title>
-        <meta name="description" content="Civix helps citizens report and track local civic issues like potholes, broken lights, and garbage collection problems. Make your city better today!" />
-        <meta name="keywords" content="civic engagement, report potholes, community issues, local government, city problems, civic app" />
-        <meta property="og:title" content="Civix | Report Local Issues & Improve Your Community" />
-        <meta property="og:description" content="Report and track local civic issues with photos, location data, and real-time updates." />
+        <meta
+          name="description"
+          content="Civix helps citizens report and track local civic issues like potholes, broken lights, and garbage collection problems. Make your city better today!"
+        />
+        <meta
+          name="keywords"
+          content="civic engagement, report potholes, community issues, local government, city problems, civic app"
+        />
+        <meta
+          property="og:title"
+          content="Civix | Report Local Issues & Improve Your Community"
+        />
+        <meta
+          property="og:description"
+          content="Report and track local civic issues with photos, location data, and real-time updates."
+        />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://civixapp.com" />
         <meta property="og:image" content="https://civixapp.com/og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="canonical" href="https://civixapp.com" />
-        
+
         {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            "name": "Civix",
-            "url": "https://civixapp.com",
-            "description": "Platform for reporting and tracking local civic issues",
-            "applicationCategory": "CommunityApplication",
-            "operatingSystem": "Android, iOS, Web",
-            "offers": {
+            name: "Civix",
+            url: "https://civixapp.com",
+            description:
+              "Platform for reporting and tracking local civic issues",
+            applicationCategory: "CommunityApplication",
+            operatingSystem: "Android, iOS, Web",
+            offers: {
               "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
+              price: "0",
+              priceCurrency: "USD",
             },
-            "creator": {
+            creator: {
               "@type": "Organization",
-              "name": "Civix"
-            }
+              name: "Civix",
+            },
           })}
         </script>
       </Helmet>
@@ -163,16 +178,28 @@ const questions = [
             <span className="text-xl font-bold">Civix</span>
           </div>
           <nav className="hidden md:flex gap-6">
-            <a href="#features" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+            <a
+              href="#features"
+              className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
+            >
               Features
             </a>
-            <a href="#how-it-works" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+            <a
+              href="#how-it-works"
+              className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
+            >
               How It Works
             </a>
-            <a href="#testimonials" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+            <a
+              href="#testimonials"
+              className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
+            >
               Testimonials
             </a>
-            <a href="#download" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+            <a
+              href="#download"
+              className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
+            >
               Download
             </a>
           </nav>
@@ -196,11 +223,14 @@ const questions = [
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                     Report Local Issues. <br />
-                    <span className="text-emerald-500">Make Your City Better.</span>
+                    <span className="text-emerald-500">
+                      Make Your City Better.
+                    </span>
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Civix helps citizens report and track local civic issues like potholes, broken lights, and garbage
-                    collection problems.
+                    Civix helps citizens report and track local civic issues
+                    like potholes, broken lights, and garbage collection
+                    problems.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -284,7 +314,7 @@ const questions = [
                 </div>
               </div>
               <div className="flex items-center justify-center animate-on-scroll">
-                <div className="relative w-full max-w-[400px] aspect-[4/3] overflow-hidden rounded-lg border shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]">
+                <div className="relative w-full max-w-[400px] aspect-[4/3] overflow-hidden rounded-lg border shadow-xl transition-all duration-500 hover:shadow-2xl zoom-on-hover">
                   <img
                     src="pexels.jpg"
                     alt="Civix App Interface showing issue reporting"
@@ -297,386 +327,440 @@ const questions = [
             </div>
           </div>
         </section>
-
-{/* Features Section */}
-<motion.section 
-  id="features" 
-  className="bg-slate-50 py-12 md:py-24 lg:py-32"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, margin: "-100px" }}
-  variants={containerVariants}
->
-  <div className="container px-4 md:px-6 mx-auto">
-    <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
-      <div className="space-y-2">
-        <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
-          Features
-        </div>
-        <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-          Everything you need to improve your community
-        </h2>
-        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-          Civix provides a comprehensive platform for citizens and city workers to collaborate on local issues.
-        </p>
-      </div>
-    </motion.div>
-    <div className="flex justify-center">
-      <motion.div 
-        className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-3"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        {[
-          {
-            icon: (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-10 w-10 text-emerald-500"
-              >
-                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-                <circle cx="12" cy="13" r="3" />
-              </svg>
-            ),
-            title: "Report Issues",
-            description: "Easily report problems with photos, location data, and detailed descriptions.",
-            features: ["Photo uploads", "Map integration", "Categorized issues"]
-          },
-          {
-            icon: (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-10 w-10 text-emerald-500"
-              >
-                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-                <polyline points="16 7 22 7 22 13" />
-              </svg>
-            ),
-            title: "Track Progress",
-            description: "Follow the status of your reports from submission to resolution.",
-            features: ["Real-time updates", "Status notifications", "Resolution timeline"]
-          },
-          {
-            icon: (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-10 w-10 text-emerald-500"
-              >
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-            ),
-            title: "Community Voting",
-            description: "Upvote issues in your area to help prioritize what matters most.",
-            features: ["Issue upvoting", "Trending issues", "Community feedback"]
-          }
-        ].map((feature, index) => (
-          <motion.div 
-            key={index}
-            className="w-full max-w-sm rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md"
-            variants={cardVariants}
-            whileHover={{ y: -5 }}
-          >
-            <div className="flex flex-col space-y-1.5 p-6">
-              {feature.icon}
-              <h3 className="text-lg font-semibold leading-none tracking-tight">{feature.title}</h3>
-              <p className="text-sm text-muted-foreground">{feature.description}</p>
-            </div>
-            <div className="p-6 pt-0">
-              <ul className="grid gap-2 text-sm">
-                {feature.features.map((item, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-4 w-4 text-emerald-500"
-                    >
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                      <path d="m9 11 3 3L22 4" />
-                    </svg>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  </div>
-</motion.section>
-
-{/* How It Works Section */}
-<motion.section 
-  id="how-it-works" 
-  className="py-12 md:py-24 lg:py-32"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  variants={fadeInVariants}
->
-  <div className="container px-4 md:px-6 mx-auto">
-    <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
-      <div className="space-y-2">
-        <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
-          How It Works
-        </div>
-        <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-          Simple process, powerful results
-        </h2>
-        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-          Civix makes it easy to report issues and track their resolution in just a few simple steps.
-        </p>
-      </div>
-    </motion.div>
-    <div className="flex justify-center">
-      <motion.div 
-        className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-3"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        {[
-          {
-            step: "1",
-            title: "Report an Issue",
-            description: "Take a photo, mark the location on the map, and add a description of the problem."
-          },
-          {
-            step: "2",
-            title: "City Review",
-            description: "City workers review and prioritize issues based on severity and community votes."
-          },
-          {
-            step: "3",
-            title: "Track Resolution",
-            description: "Follow the progress of your report from submission to completion with real-time updates."
-          }
-        ].map((step, index) => (
-          <motion.div 
-            key={index}
-            className="w-full max-w-xs flex flex-col items-center space-y-4 text-center"
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-          >
-            <motion.div 
-              className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition-all duration-300 hover:scale-110"
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.5 }}
+        {/* Features Section */}
+        <motion.section
+          id="features"
+          className="bg-slate-50 py-12 md:py-24 lg:py-32"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
+        >
+          <div className="container px-4 md:px-6 mx-auto">
+            <motion.div
+              className="flex flex-col items-center justify-center space-y-4 text-center"
+              variants={itemVariants}
             >
-              <span className="text-2xl font-bold">{step.step}</span>
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
+                  Features
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                  Everything you need to improve your community
+                </h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  Civix provides a comprehensive platform for citizens and city
+                  workers to collaborate on local issues.
+                </p>
+              </div>
             </motion.div>
-            <h3 className="text-xl font-bold">{step.title}</h3>
-            <p className="text-muted-foreground">{step.description}</p>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  </div>
-</motion.section>
-
-{/* Testimonials Section */}
-<motion.section 
-  id="testimonials" 
-  className="bg-slate-50 py-12 md:py-24 lg:py-32"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  variants={fadeInVariants}
->
-  <div className="container px-4 md:px-6 mx-auto">
-    <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={itemVariants}>
-      <div className="space-y-2">
-        <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
-          Testimonials
-        </div>
-        <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-          Trusted by communities everywhere
-        </h2>
-        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-          See what citizens and city workers are saying about Civix.
-        </p>
-      </div>
-    </motion.div>
-    <div className="flex justify-center">
-      <motion.div 
-        className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-2"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        {[
-          {
-            quote: "I reported a pothole on my street and it was fixed within a week. The ability to track progress kept me informed the whole time.",
-            name: "Sarah Johnson",
-            role: "Resident, Portland",
-            profilePic: "/profiles/sarah.jpg"
-          },
-          {
-            quote: "As a city worker, Civix has transformed how we manage local issues. The dashboard makes it easy to prioritize and track our work.",
-            name: "Michael Rodriguez",
-            role: "Public Works, Austin",
-            profilePic: "/profiles/michael.jpg"
-          }
-        ].map((testimonial, index) => (
-          <motion.div 
-            key={index}
-            className="w-full max-w-md rounded-lg border bg-white text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md"
-            variants={cardVariants}
-            whileHover={{ y: -5 }}
-          >
-            <div className="p-6">
-              <div className="flex flex-col gap-4">
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-5 w-5 fill-emerald-500 text-emerald-500"
+            <div className="flex justify-center">
+              <motion.div
+                className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-3"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+              >
+                {[
+                  {
+                    icon: (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-10 w-10 text-emerald-500"
+                      >
+                        <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                        <circle cx="12" cy="13" r="3" />
+                      </svg>
+                    ),
+                    title: "Report Issues",
+                    description:
+                      "Easily report problems with photos, location data, and detailed descriptions.",
+                    features: [
+                      "Photo uploads",
+                      "Map integration",
+                      "Categorized issues",
+                    ],
+                  },
+                  {
+                    icon: (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-10 w-10 text-emerald-500"
+                      >
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                        <polyline points="16 7 22 7 22 13" />
+                      </svg>
+                    ),
+                    title: "Track Progress",
+                    description:
+                      "Follow the status of your reports from submission to resolution.",
+                    features: [
+                      "Real-time updates",
+                      "Status notifications",
+                      "Resolution timeline",
+                    ],
+                  },
+                  {
+                    icon: (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-10 w-10 text-emerald-500"
+                      >
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      </svg>
+                    ),
+                    title: "Community Voting",
+                    description:
+                      "Upvote issues in your area to help prioritize what matters most.",
+                    features: [
+                      "Issue upvoting",
+                      "Trending issues",
+                      "Community feedback",
+                    ],
+                  },
+                ].map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    className="w-full max-w-sm rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md"
+                    variants={cardVariants}
+                    whileHover={{ y: -5 }}
+                  >
+                    <div className="flex flex-col space-y-1.5 p-6">
+                      {feature.icon}
+                      <h3 className="text-lg font-semibold leading-none tracking-tight">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {feature.description}
+                      </p>
+                    </div>
+                    <div className="p-6 pt-0">
+                      <ul className="grid gap-2 text-sm">
+                        {feature.features.map((item, i) => (
+                          <li key={i} className="flex items-center gap-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="h-4 w-4 text-emerald-500"
+                            >
+                              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                              <path d="m9 11 3 3L22 4" />
+                            </svg>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+        {/* How It Works Section */}
+        <motion.section
+          id="how-it-works"
+          className="py-12 md:py-24 lg:py-32"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInVariants}
+        >
+          <div className="container px-4 md:px-6 mx-auto">
+            <motion.div
+              className="flex flex-col items-center justify-center space-y-4 text-center"
+              variants={itemVariants}
+            >
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
+                  How It Works
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                  Simple process, powerful results
+                </h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  Civix makes it easy to report issues and track their
+                  resolution in just a few simple steps.
+                </p>
+              </div>
+            </motion.div>
+            <div className="flex justify-center">
+              <motion.div
+                className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-3"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                {[
+                  {
+                    step: "1",
+                    title: "Report an Issue",
+                    description:
+                      "Take a photo, mark the location on the map, and add a description of the problem.",
+                  },
+                  {
+                    step: "2",
+                    title: "City Review",
+                    description:
+                      "City workers review and prioritize issues based on severity and community votes.",
+                  },
+                  {
+                    step: "3",
+                    title: "Track Resolution",
+                    description:
+                      "Follow the progress of your report from submission to completion with real-time updates.",
+                  },
+                ].map((step, index) => (
+                  <motion.div
+                    key={index}
+                    className="w-full max-w-xs flex flex-col items-center space-y-4 text-center"
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <motion.div
+                      className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition-all duration-300 hover:scale-110"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
                     >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
+                      <span className="text-2xl font-bold">{step.step}</span>
+                    </motion.div>
+                    <h3 className="text-xl font-bold">{step.title}</h3>
+                    <p className="text-muted-foreground">{step.description}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+        {/* Testimonials Section */}
+        <motion.section
+          id="testimonials"
+          className="bg-slate-50 py-12 md:py-24 lg:py-32"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInVariants}
+        >
+          <div className="container px-4 md:px-6 mx-auto">
+            <motion.div
+              className="flex flex-col items-center justify-center space-y-4 text-center"
+              variants={itemVariants}
+            >
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
+                  Testimonials
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                  Trusted by communities everywhere
+                </h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  See what citizens and city workers are saying about Civix.
+                </p>
+              </div>
+            </motion.div>
+            <div className="flex justify-center">
+              <motion.div
+                className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-2"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                {[
+                  {
+                    quote:
+                      "I reported a pothole on my street and it was fixed within a week. The ability to track progress kept me informed the whole time.",
+                    name: "Sarah Johnson",
+                    role: "Resident, Portland",
+                    profilePic: "/profiles/sarah.jpg",
+                  },
+                  {
+                    quote:
+                      "As a city worker, Civix has transformed how we manage local issues. The dashboard makes it easy to prioritize and track our work.",
+                    name: "Michael Rodriguez",
+                    role: "Public Works, Austin",
+                    profilePic: "/profiles/michael.jpg",
+                  },
+                ].map((testimonial, index) => (
+                  <motion.div
+                    key={index}
+                    className="w-full max-w-md rounded-lg border bg-white text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md"
+                    variants={cardVariants}
+                    whileHover={{ y: -5 }}
+                  >
+                    <div className="p-6">
+                      <div className="flex flex-col gap-4">
+                        <div className="flex gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <svg
+                              key={i}
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="h-5 w-5 fill-emerald-500 text-emerald-500"
+                            >
+                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                          ))}
+                        </div>
+                        <p className="text-lg">"{testimonial.quote}"</p>
+                        <div className="flex items-center gap-4">
+                          <div className="rounded-full bg-slate-100 p-1">
+                            <img
+                              src={testimonial.profilePic}
+                              alt={testimonial.name}
+                              className="h-10 w-10 rounded-full object-cover"
+                            />
+                          </div>
+                          <div>
+                            <p className="font-semibold">{testimonial.name}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {testimonial.role}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Features Section */}
+          <motion.section
+            id="features"
+            className="bg-white py-12 md:py-24 lg:py-32"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={containerVariants}
+          >
+            <div className="container px-4 mx-auto">
+              <motion.div
+                className="flex flex-col items-center space-y-4 text-center w-full"
+                variants={itemVariants}
+              >
+                <div className="space-y-2">
+                  <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
+                    FAQs
+                  </div>
+                  <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                    Frequently Asked Questions
+                  </h2>
+                  <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                    Find answers to commonly asked questions about Civix
+                    platform features and services.
+                  </p>
+                </div>
+                <div className="w-full mt-8 max-w-3xl mx-auto">
+                  {questions.map((faq) => (
+                    <div
+                      key={faq.id}
+                      className="py-2 mb-4 w-full overflow-hidden"
+                    >
+                      <button
+                        className="w-full text-left flex items-center justify-between px-4 py-2 bg-emerald-100 border-0 outline-none focus:outline-none focus:ring-0 shadow-none rounded-md hover:bg-emerald-100 transition-colors duration-300"
+                        onClick={() =>
+                          setActiveFaq(activeFaq === faq.id ? null : faq.id)
+                        }
+                      >
+                        <span className="font-medium">{faq.question}</span>
+                        {activeFaq === faq.id ? (
+                          <svg
+                            className="w-5 h-5 text-emerald-500 transition-transform duration-300"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M5 15l7-7 7 7"
+                            ></path>
+                          </svg>
+                        ) : (
+                          <svg
+                            className="w-5 h-5 text-emerald-500 transition-transform duration-300"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M19 9l-7 7-7-7"
+                            ></path>
+                          </svg>
+                        )}
+                      </button>
+                      {activeFaq === faq.id && (
+                        <motion.div
+                          className="mt-2 px-4 py-2 bg-white rounded-md shadow-sm"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.5, ease: "easeInOut" }}
+                        >
+                          <p className="text-left">{faq.answer}</p>
+                        </motion.div>
+                      )}
+                    </div>
                   ))}
                 </div>
-                <p className="text-lg">"{testimonial.quote}"</p>
-                <div className="flex items-center gap-4">
-                  <div className="rounded-full bg-slate-100 p-1">
-                    <img
-                      src={testimonial.profilePic}
-                      alt={testimonial.name}
-                      className="h-10 w-10 rounded-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                  </div>
-                </div>
-              </div>
+              </motion.div>
             </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  </div>
-
-
-  {/* Features Section */}
-<motion.section 
-  id="features" 
-  className="bg-white py-12 md:py-24 lg:py-32"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, margin: "-100px" }}
-  variants={containerVariants}
->
-  <div className="container px-4 mx-auto">
-    <motion.div className="flex flex-col items-center space-y-4 text-center w-full" variants={itemVariants}>
-      <div className="space-y-2">
-        <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
-          FAQs
-        </div>
-        <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-          Frequently Asked Questions
-        </h2>
-        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            Find answers to commonly asked questions about Civix platform features and services.
-        </p>
-      </div>
-      <div className="w-full mt-8 max-w-3xl mx-auto">
-          {questions.map((faq) => (
-            <div key={faq.id}
-            className="py-2 mb-4 w-full overflow-hidden">
-              <button 
-              className="w-full text-left flex items-center justify-between px-4 py-2 bg-emerald-100 border-0 outline-none focus:outline-none focus:ring-0 shadow-none rounded-md hover:bg-emerald-100 transition-colors duration-300"
-              onClick={() => setActiveFaq(activeFaq === faq.id ? null : faq.id)}
-              >
-                <span className="font-medium">{faq.question}</span>
-                {activeFaq === faq.id ? (
-                  <svg 
-                    className="w-5 h-5 text-emerald-500 transition-transform duration-300"
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path>
-                  </svg>
-                ) : (
-                  <svg 
-                    className="w-5 h-5 text-emerald-500 transition-transform duration-300"
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                )}
-              </button>
-                {activeFaq === faq.id && (
-                  <motion.div
-                    className="mt-2 px-4 py-2 bg-white rounded-md shadow-sm"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}>
-                        <p className="text-left">{faq.answer}</p>
-                  </motion.div>
-                )}
-            </div>
-          ))}
-      </div>
-   </motion.div>
-  </div>
-
-</motion.section>
-
-</motion.section>        {/* Download Section */}
-        <section id="download" className="py-12 md:py-24 lg:py-32 bg-emerald-50">
+          </motion.section>
+        </motion.section>{" "}
+        {/* Download Section */}
+        <section
+          id="download"
+          className="py-12 md:py-24 lg:py-32 bg-emerald-50"
+        >
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="flex flex-col justify-center space-y-4 animate-on-scroll">
@@ -685,7 +769,8 @@ const questions = [
                     Ready to improve your community?
                   </h2>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed">
-                    Download the Civix app today and start making a difference in your neighborhood.
+                    Download the Civix app today and start making a difference
+                    in your neighborhood.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -823,24 +908,42 @@ const questions = [
             <span className="text-xl font-bold">Civix</span>
           </div>
           <nav className="flex flex-wrap gap-4 md:gap-6">
-            <a href="#" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+            <a
+              href="#"
+              className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
+            >
               About
             </a>
-            <a href="#" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+            <a
+              href="#"
+              className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
+            >
               Features
             </a>
-            <a href="#" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+            <a
+              href="#"
+              className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
+            >
               Privacy
             </a>
-            <a href="#" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+            <a
+              href="#"
+              className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
+            >
               Terms
             </a>
-            <a href="#" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+            <a
+              href="#"
+              className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
+            >
               Contact
             </a>
           </nav>
           <div className="flex items-center gap-4">
-            <a href="#" className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300">
+            <a
+              href="#"
+              className="text-sm font-medium hover:text-emerald-500 transition-colors duration-300"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
