@@ -7,6 +7,8 @@ import PrivateRoute from './components/PrivateRoute';
 import AdminDashboard from './components/AdminDashboard';
 import Error404 from './components/Error404';
 import Footer from "./components/Footer";
+import DownloadIOS from './components/DownloadIOS';
+import DownloadAndroid from './components/DownloadAndroid';
 
 const App = () => {
   return (
@@ -19,22 +21,25 @@ const App = () => {
         <Route path="*" element={<Error404 />} />
 
         {/* Protected routes */}
-        <Route 
-          path="/admin/dashboard" 
+        <Route
+          path="/admin/dashboard"
           element={
-            <PrivateRoute allowedRoles={['admin']}>
+            <PrivateRoute allowedRoles={["admin"]}>
               <AdminDashboard />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/home" 
+        <Route
+          path="/home"
           element={
-            <PrivateRoute allowedRoles={['user', 'admin']}>
+            <PrivateRoute allowedRoles={["user", "admin"]}>
               <Home />
             </PrivateRoute>
-          } 
-        />
+          }
+        >
+          <Route path="download/ios" element={<DownloadIOS />} />
+          <Route path="download/android" element={<DownloadAndroid />} />
+        </Route>
       </Routes>
       {/* Footer */}
       <Footer />
