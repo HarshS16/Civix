@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { CardContainer, CardItem } from "./components/ui/3d-card";
 
 function Home() {
   const [activeFaq, setActiveFaq] = useState(null);
@@ -244,15 +245,19 @@ const questions = [
                 </div>
               </div>
               <div className="flex items-center justify-center animate-on-scroll">
-                <div className="relative w-full max-w-[400px] aspect-[4/3] overflow-hidden rounded-lg border shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]">
-                  <img
-                    src="pexels.jpg"
-                    alt="Civix App Interface showing issue reporting"
-                    className="object-cover w-full h-full"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                </div>
+                <CardContainer>
+                  <div className="relative w-full max-w-[600px] h-[28rem] overflow-hidden rounded-lg border shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]">
+                    <CardItem translateZ={100} className="w-full h-full">
+                      <img
+                        src="pexels.jpg"
+                        alt="Civix App Interface showing issue reporting"
+                        className="object-cover w-full h-full"
+                        loading="lazy"
+                      />
+                    </CardItem>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                </CardContainer>
               </div>
             </div>
           </div>
