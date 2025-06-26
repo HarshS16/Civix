@@ -5,7 +5,7 @@
   width: 90%;
   max-width: 1000px;
   height: 600px;
-  margin:auto;
+  margin: auto;
   margin-top: calc(50vh - 300px); /* vertical centering */
   font-family: 'Inter', Arial, sans-serif;
   background: #fff;
@@ -42,13 +42,9 @@
   background-size: cover;    
   background-position: center;
   background-repeat: no-repeat; 
-<<<<<<< fix/auth
-  transition: all 0.5s ease-in-out;
-=======
   min-width: 0;
   transition: all 0.5s ease-in-out, opacity 0.4s ease-in-out;
   animation: imageFadeIn 0.8s cubic-bezier(.4,0,.2,1) forwards;
->>>>>>> main
 }
 
 .login-image {
@@ -82,10 +78,6 @@
 }
 
 .auth-form h2 {
-<<<<<<< fix/auth
-  color: ;
-  transition: all 0.3s;
-=======
   color: #10B981;
   font-family: 'Inter', Arial, sans-serif;
   font-size: 1.7rem;
@@ -99,7 +91,6 @@
 
 .auth-form h2:hover {
   color: #0E9F6E;
->>>>>>> main
 }
 
 .auth-form form {
@@ -110,22 +101,8 @@
   align-items: stretch;
   animation-delay: 0.3s;
 }
-.pwValidator{
-  background:rgba(16, 185, 129, 0.221);
-  border-radius: 12px;
-  margin-bottom:8px ;
-  padding: 8px;
-}
 
 .auth-form input {
-<<<<<<< fix/auth
-  padding: 18px 12px;      /* more vertical padding for taller inputs */
-  margin: 8px 0;          /* more vertical space between inputs */
-  border: 1.5px solid #ccc;
-  border-radius: 8px;
-  font-size: 1.1rem;       /* slightly bigger font */
-  transition: border-color 0.3s;
-=======
   padding: 0.95rem 1rem;
   margin: 0;
   border: 1px solid #e5e7eb;
@@ -143,7 +120,6 @@
 .auth-form input:focus {
   border-color: #10B981;
   box-shadow: 0 0 0 1.5px #10B98122;
->>>>>>> main
 }
 
 .auth-form input:hover {

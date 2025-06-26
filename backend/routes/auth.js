@@ -17,18 +17,15 @@ const validate = require('../middlewares/validate');
  *       properties:
  *         username:
  *           type: string
- *           minLength: 3
- *           maxLength: 30
- *           pattern: '^[a-zA-Z0-9_]+$'
- *           description: Alphanumeric username (3-30 chars)
+ *           description: The user's username
  *         email:
  *           type: string
  *           format: email
- *           description: Valid email address
+ *           description: The user's email
  *         password:
  *           type: string
- *           minLength: 8
- *           description: Password (min 8 chars)
+ *           minLength: 6
+ *           description: The user's password
  *     LoginRequest:
  *       type: object
  *       required:
@@ -40,20 +37,27 @@ const validate = require('../middlewares/validate');
  *           format: email
  *         password:
  *           type: string
+ *           minLength: 6
  *     AuthResponse:
  *       type: object
  *       properties:
  *         token:
  *           type: string
- *         user:
- *           $ref: '#/components/schemas/User'
+ *           description: JWT token
+ *     ErrorResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *         error:
+ *           type: string
  */
 
 /**
  * @swagger
  * /auth/signup:
  *   post:
- *     summary: Register new user
+ *     summary: Register a new user
  *     tags: [Authentication]
  *     requestBody:
  *       required: true
@@ -63,43 +67,42 @@ const validate = require('../middlewares/validate');
  *             $ref: '#/components/schemas/User'
  *     responses:
  *       201:
- *         description: User created
+ *         description: User registered successfully
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: User registered
+ *       400:
+ *         description: Validation error
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AuthResponse'
- *       400:
- *         description: Validation error
- *       409:
- *         description: User exists
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/signup',
-  [
-    body('username')
-      .trim()
-      .isLength({ min: 3, max: 30 })
-      .matches(/^[a-zA-Z0-9_]+$/)
-      .withMessage('Username must be 3-30 alphanumeric characters'),
-    body('email')
-      .trim()
-      .isEmail()
-      .normalizeEmail()
-      .withMessage('Valid email required'),
-    body('password')
-      .isLength({ min: 8 })
-      .withMessage('Password must be at least 8 characters')
-  ],
-  validate,
-  signup
+    [
+        body('username').notEmpty(),
+        body('email').isEmail(),
+        body('password').isLength({ min: 6 }),
+
+    ],
+    validate,
+    signup
+
 );
 
 /**
  * @swagger
  * /auth/login:
  *   post:
- *     summary: Authenticate user
+ *     summary: Login user
  *     tags: [Authentication]
  *     requestBody:
  *       required: true
@@ -116,22 +119,25 @@ router.post('/signup',
  *               $ref: '#/components/schemas/AuthResponse'
  *       401:
  *         description: Invalid credentials
- *       404:
- *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/login',
-  [
-    body('email')
-      .trim()
-      .isEmail()
-      .normalizeEmail(),
-    body('password')
-      .notEmpty()
-  ],
-  validate,
-  login
+
+    [
+        body('email').isEmail(),
+        body('password').isLength({ min: 6 }),  
+    ],
+    validate,
+    login
 );
 
-module.exports = router;
+module.exports=router;

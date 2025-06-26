@@ -1,15 +1,13 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toast ,ToastContainer} from 'react-toastify';
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // Remove token from localStorage
-    toast.success("you have been logged out")
-        setTimeout(() => {
-        navigate('/login');
-        },2000);
+    alert('You have been logged out.');
+    navigate('/login'); // Redirect to login page
   }
 
   return (
@@ -28,16 +26,6 @@ const AdminDashboard = () => {
       {/* Dashboard Content */}
       <main className="p-6">
         <p>Welcome, Admin! You have access to admin controls.</p>
-        <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        closeOnClick
-        pauseOnHover
-        draggable
-        theme="dark"
-        toastClassName="toast-body custom-toast-shadow"
-        bodyClassName="text-sm font-medium"
-      />
       </main>
     </div>
   )
