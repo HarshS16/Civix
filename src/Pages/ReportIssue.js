@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import TextArea from '../components/TextArea';
 
 export default function ReportIssue() {
   const [phone, setPhone] = useState('');
@@ -61,13 +62,13 @@ export default function ReportIssue() {
           className="w-full border p-2 rounded"
           required
         />
-        <textarea
+        <TextArea
           placeholder="Describe the issue..."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full border p-2 rounded"
           required
-        ></textarea>
+          counter={{ max: 100, show: true }}
+        ></TextArea>
         <input
           type="file"
           onChange={(e) => setFile(e.target.files[0])}

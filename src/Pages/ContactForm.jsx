@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiUser, FiMail, FiMessageCircle, FiCheckCircle } from 'react-icons/fi';
+import TextArea from '../components/TextArea';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -70,22 +71,17 @@ const ContactForm = () => {
         </label>
       </motion.div>
       {/* Message Field */}
-      <motion.div className="relative" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
-        <FiMessageCircle className="absolute left-3 top-4 text-emerald-400 text-xl pointer-events-none" />
-        <textarea
-          id="message"
-          name="message"
-          rows="5"
-          value={formData.message}
-          onChange={handleChange}
-          required
-          className="peer w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#23272f] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300 placeholder-transparent resize-none"
-          placeholder="Your Message"
-        ></textarea>
-        <label htmlFor="message" className="absolute left-10 top-4 text-gray-500 dark:text-gray-400 text-base transition-all duration-200 pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:-top-3 peer-focus:text-xs peer-focus:text-emerald-600 dark:peer-focus:text-emerald-400 bg-white dark:bg-[#23272f] px-1 peer-focus:px-1">
-          Your Message
-        </label>
-      </motion.div>
+      <TextArea
+        id="message"
+        name="message"
+        icon={FiMessageCircle}
+        rows="5"
+        value={formData.message}
+        onChange={handleChange}
+        required
+        placeholder="Your Message"
+        label="Your Message"
+      />
       {/* Submit Button */}
       <motion.button
         type="submit"
