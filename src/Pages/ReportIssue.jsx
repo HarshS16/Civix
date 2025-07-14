@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import './ReportIssue.css';
 
@@ -9,6 +10,9 @@ export default function ReportIssue() {
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
   const [notifyByEmail, setNotifyByEmail] = useState(false);
+  const [category, setCategory] = useState('Other');
+  const [severity, setSeverity] = useState('Low');
+  const [location, setLocation] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +23,9 @@ export default function ReportIssue() {
     formData.append('description', description);
     formData.append('phone', phone);
     formData.append('notifyByEmail', notifyByEmail);
+    formData.append('category', category);
+    formData.append('severity', severity);
+    formData.append('location', location);
     if (file) formData.append('file', file);
 
     try {
@@ -35,6 +42,9 @@ export default function ReportIssue() {
       setDescription('');
       setFile(null);
       setNotifyByEmail(false);
+      setCategory('Other');
+      setSeverity('Low');
+      setLocation('');
     } catch (err) {
       console.error('Submit error:', err);
       alert('Failed to submit issue.');
@@ -114,6 +124,58 @@ export default function ReportIssue() {
               placeholder="e.g., Login button not working"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+              Category
+            </label>
+            <select
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
+              required
+            >
+              <option value="Infrastructure">Infrastructure</option>
+              <option value="Public Safety">Public Safety</option>
+              <option value="Environment">Environment</option>
+              <option value="Transportation">Transportation</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="severity" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+              Severity
+            </label>
+            <select
+              id="severity"
+              value={severity}
+              onChange={(e) => setSeverity(e.target.value)}
+              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
+              required
+            >
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="location" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+              Location
+            </label>
+            <input
+              type="text"
+              id="location"
+              placeholder="e.g., Main Street, near Central Park"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
               className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
               required
             />
