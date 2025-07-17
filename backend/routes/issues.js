@@ -33,6 +33,33 @@ router.patch('/:id/status', verifyToken, isAdmin, async (req, res, next) => {
 
 const { upload } = require('../middlewares/upload');
 // const { validate } = require('../middlewares/validate');
+// PATCH flag issue
+router.patch('/:id/flag', verifyToken, isAdmin, async (req, res, next) => {
+  try {
+    await issueController.flagIssue(req, res);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PATCH archive issue
+router.patch('/:id/archive', verifyToken, isAdmin, async (req, res, next) => {
+  try {
+    await issueController.archiveIssue(req, res);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// DELETE issue
+router.delete('/:id', verifyToken, isAdmin, async (req, res, next) => {
+  try {
+    await issueController.deleteIssue(req, res);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // GET all issues
 router.get('/', issueController.getAllIssues);
 

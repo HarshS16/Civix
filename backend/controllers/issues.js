@@ -3,7 +3,7 @@ const sendEmail = require('../utils/sendEmail');
 
 const createIssue = async (req, res) => {
   try {
-    const { title, description, phone, email, notifyByEmail } = req.body;
+    const { title, description, phone, email, notifyByEmail, category, severity, location } = req.body;
 
     if (!title || !description || !email) {
       return res.status(400).json({ error: "Title, description, and email are required" });
@@ -17,7 +17,10 @@ const createIssue = async (req, res) => {
       phone,
       email,
       notifyByEmail: notifyByEmail === 'true',
-      fileUrl
+      fileUrl,
+      category,
+      severity,
+      location
     });
 
     return res.status(201).json({ message: 'Issue submitted successfully', issue });
@@ -46,6 +49,11 @@ const updateIssueStatus = async (req, res) => {
     if (!issue) return res.status(404).json({ error: 'Issue not found' });
 
     issue.status = newStatus;
+    if (newStatus === 'Resolved') {
+      issue.resolvedAt = new Date();
+    } else {
+      issue.resolvedAt = undefined; // Clear resolvedAt if status changes from Resolved
+    }
     await issue.save();
 
     if (issue.notifyByEmail && issue.email) {
@@ -63,4 +71,47 @@ const updateIssueStatus = async (req, res) => {
   }
 };
 
-module.exports = { createIssue, getAllIssues, updateIssueStatus };
+const flagIssue = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const issue = await Issue.findById(id);
+    if (!issue) return res.status(404).json({ error: 'Issue not found' });
+
+    issue.status = 'Flagged';
+    await issue.save();
+    return res.json({ message: 'Issue flagged successfully.' });
+  } catch (err) {
+    console.error('Error flagging issue:', err);
+    return res.status(500).json({ error: 'Failed to flag issue.' });
+  }
+};
+
+const archiveIssue = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const issue = await Issue.findById(id);
+    if (!issue) return res.status(404).json({ error: 'Issue not found' });
+
+    issue.status = 'Archived';
+    await issue.save();
+    return res.json({ message: 'Issue archived successfully.' });
+  } catch (err) {
+    console.error('Error archiving issue:', err);
+    return res.status(500).json({ error: 'Failed to archive issue.' });
+  }
+};
+
+const deleteIssue = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const issue = await Issue.findByIdAndDelete(id);
+    if (!issue) return res.status(404).json({ error: 'Issue not found' });
+
+    return res.json({ message: 'Issue deleted successfully.' });
+  } catch (err) {
+    console.error('Error deleting issue:', err);
+    return res.status(500).json({ error: 'Failed to delete issue.' });
+  }
+};
+
+module.exports = { createIssue, getAllIssues, updateIssueStatus, flagIssue, archiveIssue, deleteIssue };

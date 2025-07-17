@@ -14,6 +14,24 @@ const issueSchema = new mongoose.Schema({
     type: String,
     default: 'Pending'
   },
+  category: {
+    type: String,
+    enum: ['Infrastructure', 'Public Safety', 'Environment', 'Transportation', 'Other'],
+    default: 'Other'
+  },
+  resolvedAt: {
+    type: Date,
+    required: false,
+  },
+  severity: {
+    type: String,
+    enum: ['Low', 'Medium', 'High', 'Critical'],
+    default: 'Low'
+  },
+  location: {
+    type: String,
+    required: false
+  },
   notifyByEmail: {
     type: Boolean,
     default: false, // Default to false if not specified
