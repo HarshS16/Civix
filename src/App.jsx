@@ -32,6 +32,7 @@ import MyComplaints from './Pages/MyComplaints';
 import CivicEducation from './Pages/CivicEducation';
 import CivicSimulator from './Pages/CivicSimulator';
 import Contributors from './Pages/Contributors';
+import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 
 const App = () => {
   const { isSignedIn } = useAuth();
@@ -39,6 +40,7 @@ const App = () => {
   return (
     <>
       <ScrollToTop />
+      <ScrollToTopOnRouteChange/>
       <Toaster
         position="top-right"
         toastOptions={{
