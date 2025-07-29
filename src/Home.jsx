@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import "./Home.css";
@@ -489,3 +489,74 @@ function Home() {
 }
 
 export default Home;
+
+export const FAQ = () => {
+  const faqs = [
+    {
+      question: "What is Civix?",
+      answer: "Civix is a platform designed to empower citizens with civic awareness tools.",
+    },
+    {
+      question: "How do I contribute?",
+      answer: "You can contribute via GitHub, submit PRs, or report issues.",
+    },
+    {
+      question: "Is Civix open source?",
+      answer: "Yes, the project is open source and available on GitHub.",
+    },
+  ];
+
+  return (
+    <section id="faq" className="max-w-3xl mx-auto px-4 py-12">
+      <h2 className="text-3xl font-bold text-center mb-8 text-emerald-600">
+        Frequently Asked Questions
+      </h2>
+      {faqs.map((faq, index) => (
+        <FaqItem key={index} question={faq.question} answer={faq.answer} />
+      ))}
+    </section>
+  );
+};
+
+const FaqItem = ({ question, answer }) => {
+  const [open, setOpen] = useState(false);
+  const contentRef = useRef(null);
+  const [height, setHeight] = useState("0px");
+
+  useEffect(() => {
+    if (open) {
+      setHeight(`${contentRef.current.scrollHeight}px`);
+    } else {
+      setHeight("0px");
+    }
+  }, [open]);
+
+  return (
+    <div className="border-b border-gray-200 py-4">
+      <button
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        className="w-full flex justify-between items-center text-lg font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 transition-colors focus:outline-none"
+      >
+        {question}
+        <span className="text-xl text-emerald-500 transition-transform duration-300 transform">
+          {open ? "−" : "+"}
+        </span>
+      </button>
+
+      <div
+        ref={contentRef}
+        className="overflow-hidden transition-all duration-500 ease-in-out"
+        style={{
+          height,
+          opacity: open ? 1 : 0,
+          transform: open ? "translateY(0)" : "translateY(-8px)",
+        }}
+      >
+        <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 px-1">
+          {answer}
+        </p>
+      </div>
+    </div>
+  );
+};
