@@ -7,7 +7,7 @@ import {
   faMapMarkerAlt,
   faExclamationTriangle,
   faClock,
-  faArrowLeft,
+  faArrowLeft, // Make sure this is imported
   faEdit,
   faSave,
   faLock,
@@ -86,14 +86,16 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-      {/* Back Button */}
+      {/* Back Button - Using the 'back-button' class and FontAwesomeIcon */}
       <button
-        className="back-button"
+        className="back-button" // Using 'back-button' as per your provided CSS
         onClick={() => window.history.back()}
         type="button"
       >
-        ← Back
+        <FontAwesomeIcon icon={faArrowLeft} className="icon" /> {/* Added the arrow icon */}
+        Back
       </button>
+
 
       <div className="profile-card">
         <h2 className="profile-title">

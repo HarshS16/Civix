@@ -1,14 +1,61 @@
-.resources-container {
-  max-width: 960px;
-  margin: auto;
-  padding: 2rem;
+/* New wrapper for the entire page to allow header to span full width */
+.resources-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
-  color: #333;
 }
 
-/* Dark mode support */
-.dark .resources-container {
-  color: #e0e0e0;
+/* New header bar for the back button */
+.resources-header {
+  background-color: #2d6a4f; /* Dark green background */
+  color: #fff; /* Text color for elements inside the header */
+  padding: 1rem 2rem; /* Padding for the header */
+  display: flex;
+  align-items: center;
+  width: 100%; /* Ensure it spans the full width */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* Styles for the back button within the header */
+.back-button {
+  /* position: absolute; */
+  /* top: 2.5rem; */
+  /* left: 1.5rem; */
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 2px solid #198754;
+  background: transparent;
+  color:  #198754 !important;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+
+  /* add margin-top to create space above */
+  margin-top: 2rem;
+}
+
+
+/* Hover state for the back button */
+.back-button:hover {
+  background-color: #198754;
+  color: white !important;
+}
+
+
+/* Main content container, now below the header */
+.resources-container {
+  max-width: 960px;
+
+  margin: 2rem auto; /* Added top margin to separate from header, and auto for horizontal centering */
+  padding: 0 2rem; /* Horizontal padding, vertical padding controlled by margin-top */
+  flex-grow: 1; /* Allows container to grow and take available space */
+
 }
 
 .resources-title {
@@ -58,9 +105,8 @@
   line-height: 1.6;
 }
 
-.dark .resources-list {
-  color: #cccccc;
-}
+
+/* General icon styles (for icons other than the back button) */
 
 .icon {
   font-size: 1.2rem;

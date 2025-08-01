@@ -10,7 +10,7 @@ import {
   faChevronDown,
   faChevronUp,
   faFileAlt,
-  faArrowLeft
+  faArrowLeft // Ensure faArrowLeft is imported
 } from '@fortawesome/free-solid-svg-icons';
 
 const faqData = [
@@ -41,16 +41,23 @@ const Resources = () => {
   };
 
   return (
-    <div className="resources-container bg-white dark:bg-gray-900">
+
+    <div className="resources-container">
+      {/* Back Button - Changed class to 'back-button' and added FontAwesomeIcon */}
       <button
-        className="back-button text-emerald-500 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-300"
+        className="back-button" /* Changed from "btn-back-interactive" to "back-button" */
+
         onClick={() => window.history.back()}
         type="button"
+        aria-label="Go back"
       >
-        <FontAwesomeIcon icon={faArrowLeft} className="mr-2" /> Back
+
+        <FontAwesomeIcon icon={faArrowLeft} className="icon" />
+        Back
       </button>
 
-      <h1 className="resources-title text-gray-800 dark:text-white">Citizen Resources</h1>
+      <h1 className="resources-title">Citizen Resources</h1>
+
 
       <section className="resources-section">
         <h2 className="resources-subtitle text-gray-800 dark:text-white">

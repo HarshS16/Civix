@@ -1,11 +1,14 @@
+/* Base styles for the profile page container */
 .profile-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 2rem;
   font-family: Arial, sans-serif;
+  position: relative; /* Ensure this is relative for absolute positioning of back-button */
 }
 
+/* Styles for the main profile card */
 .profile-card {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);
@@ -14,30 +17,45 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Ensures padding is included in the width */
+  /* Increased margin-top to move the form further down */
+  margin-top: 5rem; /* Adjusted from 3rem to 5rem to move the form lower */
 }
 
-.btn-back {
-  background: none;
-  border: none;
+/* Styles for the small, subtle back button (like in the image) */
+.back-button {
+  position: absolute;
+  top: 2.5rem; /* This positions the back button relative to .profile-page */
+  left: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
   font-weight: 600;
+  border-radius: 8px;
+  border: 2px solid #198754;
+  background: transparent;
+  color: #198754 !important; /* Changed to white to make text visible against a dark background */
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  z-index: 10;
   display: inline-flex;
   align-items: center;
-  font-size: 1rem;
-  padding: 0;
-  margin-bottom: 1rem;
 }
 
-.btn-back:hover {
-  color: #1b4332;
+/* Hover state for the back button */
+.back-button:hover {
+  background-color: #198754;
+  color: white !important;
 }
 
+/* Styles for icons */
 .icon {
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
+  margin-right: 0.5rem; /* Space to the right of the icon */
+  font-size: 1.2rem; /* Default icon size */
+  color: inherit; /* Ensure icon color inherits from parent (the button) */
 }
 
+/* Styles for the profile title */
 .profile-title {
   font-size: 2.25rem;
   font-weight: 700;
@@ -50,23 +68,27 @@
   gap: 0.5rem;
 }
 
+/* Styles for the profile form layout */
 .profile-form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr; /* Two columns by default */
   gap: 2rem;
 }
 
+/* Responsive adjustment for smaller screens */
 @media (max-width: 700px) {
   .profile-form {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Single column on small screens */
   }
 }
 
+/* Styles for individual form groups */
 .form-group {
   display: flex;
   flex-direction: column;
 }
 
+/* Styles for form labels */
 .form-label {
   font-weight: 600;
   margin-bottom: 0.4rem;
@@ -75,40 +97,46 @@
   font-size: 0.9rem;
 }
 
+/* Styles for form input fields */
 .form-input {
   font-size: 1rem;
   padding: 0.5rem 0.75rem;
   border: none;
-  border-bottom: 2px solid #94d3ac;
+  border-bottom: 2px solid #94d3ac; /* Light green bottom border */
   background-color: transparent;
   transition: border-color 0.3s ease;
 }
 
+/* Focus state for form input fields */
 .form-input:focus {
   outline: none;
-  border-bottom-color: #2d6a4f;
+  border-bottom-color: #2d6a4f; /* Darker green border on focus */
 }
 
+/* Styles for readonly form inputs */
 .form-input.readonly {
-  border-bottom-color: #94d3ac;
-  cursor: default;
+  border-bottom-color: #94d3ac; /* Maintain light green border */
+  cursor: default; /* Change cursor for readonly fields */
 }
 
+/* Styles for static form text (non-editable) */
 .form-text {
   font-size: 1rem;
   padding: 0.5rem 0.75rem;
   border-bottom: 2px solid #94d3ac;
-  user-select: none;
+  user-select: none; /* Prevent text selection */
 }
 
+/* Styles for the action buttons container */
 .action-buttons {
-  grid-column: 1 / -1;
+  grid-column: 1 / -1; /* Span across all columns in the grid */
   display: flex;
   gap: 1rem;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
 
+/* Styles for primary buttons */
 .btn-primary {
   background-color: #2d6a4f;
   color: #ffffff;
@@ -123,18 +151,21 @@
   transition: background-color 0.3s ease;
 }
 
+/* Hover state for primary buttons */
 .btn-primary:hover {
-  background-color: #1b4332;
+  background-color: #1b4332; /* Darker green on hover */
 }
 
+/* Icon styles within primary buttons */
 .btn-primary .icon {
-  color: inherit;
+  color: inherit; /* Icon color matches button text color */
 }
 
+/* Styles for secondary buttons */
 .btn-secondary {
   background-color: #ffffff;
-  border: 2px solid #2d6a4f;
-  color: #2d6a4f;
+  border: 2px solid #2d6a4f; /* Green border */
+  color: #2d6a4f; /* Green text */
   padding: 0.7rem 1.5rem;
   font-weight: 700;
   font-size: 1rem;
@@ -145,18 +176,21 @@
   transition: background-color 0.3s ease;
 }
 
+/* Hover state for secondary buttons */
 .btn-secondary:hover {
-  background-color: #2d6a4f;
-  color: white;
+  background-color: #2d6a4f; /* Green background on hover */
+  color: white; /* White text on hover */
 }
 
+/* Icon styles within secondary buttons */
 .btn-secondary .icon {
-  color: inherit;
+  color: inherit; /* Icon color matches button text color */
 }
 
+/* Styles for the password request message */
 .password-request-message {
-  grid-column: 1 / -1;
-  border: 1px solid #a7f3d0;
+  grid-column: 1 / -1; /* Span across all columns in the grid */
+  border: 1px solid #a7f3d0; /* Light green border */
   padding: 1rem 1.5rem;
   border-radius: 0.5rem;
   font-size: 0.9rem;

@@ -1,7 +1,7 @@
 const z = require("zod");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const pool = require("../config/db");
+const pool = require("../config/mongo.js"); // Assuming you have a pool setup for MongoDB
 require("dotenv").config();
 const {asyncHandler}=require("../utils/asyncHandler")
 

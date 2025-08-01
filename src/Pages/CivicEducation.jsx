@@ -1176,17 +1176,16 @@ const CivicEducation = () => {
                         >
                           <div className="flex items-center space-x-3">
                             <div
-                              className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                                selectedAnswer === index
+                              className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedAnswer === index
                                   ? showResult
                                     ? index === currentQuestion.correct
                                       ? 'border-emerald-500 bg-emerald-500'
                                       : 'border-red-500 bg-red-500'
                                     : 'border-purple-500 bg-purple-500'
                                   : showResult && index === currentQuestion.correct
-                                  ? 'border-emerald-500 bg-emerald-500'
-                                  : 'border-gray-400'
-                              }`}
+                                    ? 'border-emerald-500 bg-emerald-500'
+                                    : 'border-gray-400'
+                                }`}
                             >
                               {showResult && index === currentQuestion.correct ? (
                                 <CheckCircle className="w-4 h-4 text-white" />
@@ -1258,21 +1257,21 @@ const CivicEducation = () => {
                 Get comprehensive guides, worksheets, and reference materials
               </p>
               <div className="grid md:grid-cols-3 gap-4">
-                <button className="bg-white/20 hover:bg-white/30 p-4 rounded-lg transition-colors">
+                <a href="/pdfs/civic_rights_guide.pdf" download className="bg-white/20 hover:bg-white/30 p-4 rounded-lg transition-colors">
                   <FileText className="w-8 h-8 mx-auto mb-2" />
                   <div className="font-medium">Civic Rights Guide</div>
                   <div className="text-sm opacity-75">PDF • 2.3 MB</div>
-                </button>
-                <button className="bg-white/20 hover:bg-white/30 p-4 rounded-lg transition-colors">
+                </a>
+                <a href="/pdfs/local_government_handbook.pdf" download className="bg-white/20 hover:bg-white-30 p-4 rounded-lg transition-colors">
                   <BookOpen className="w-8 h-8 mx-auto mb-2" />
                   <div className="font-medium">Local Government Handbook</div>
                   <div className="text-sm opacity-75">PDF • 1.8 MB</div>
-                </button>
-                <button className="bg-white/20 hover:bg-white/30 p-4 rounded-lg transition-colors">
+                </a>
+                <a href="/pdfs/participation_toolkit.pdf" download className="bg-white/20 hover:bg-white-30 p-4 rounded-lg transition-colors">
                   <Users className="w-8 h-8 mx-auto mb-2" />
                   <div className="font-medium">Participation Toolkit</div>
                   <div className="text-sm opacity-75">PDF • 3.1 MB</div>
-                </button>
+                </a>
               </div>
             </div>
 

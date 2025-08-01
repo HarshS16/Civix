@@ -214,7 +214,7 @@ function Home() {
               </div>
             </motion.div>
             <div className="flex justify-center">
-              <motion.div className="grid max-w-5xl items-center justify-items-center gap-6 py-12 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+              <motion.div className="grid max-w-5xl  justify-items-center items-stretch gap-6 py-12 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
                 {[
                   {
                     icon: (

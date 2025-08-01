@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../config/db');
+const pool = require('../config/mongo.js'); // Assuming you have a pool setup for MongoDB
 const xss = require('xss');
 
 // GET user profile by email
