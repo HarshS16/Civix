@@ -13,7 +13,7 @@ const app = express();
 // ^ Whole Backend is a mess, I removed too much buggy code, and somehow i have commented the following 2 lines, idk why there are 2 databases here..... but they were causing failure to run the backend.
 
 // require("./config/db.js");     // PostgreSQL
-// require("./config/mongo.js");  // MongoDB
+require("./config/mongo.js");  // MongoDB
 
 // === Swagger Docs ===
 const { swaggerUi, specs } = require("./config/swagger.js");

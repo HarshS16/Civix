@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-mimport { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { toast, ToastContainer } from 'react-toastify';
 
 const AdminDashboard = () => {
@@ -40,7 +40,7 @@ const AdminDashboard = () => {
   const fetchIssues = React.useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5001/api/issues', {
+      const res = await fetch('http://localhost:5000/api/issues', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -63,7 +63,7 @@ const AdminDashboard = () => {
   const handleStatusChange = async (id, status) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5001/api/issues/${id}/status`, {
+      const res = await fetch(`http://localhost:5000/api/issues/${id}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
