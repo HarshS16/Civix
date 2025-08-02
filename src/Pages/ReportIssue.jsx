@@ -122,7 +122,7 @@ export default React.memo(function ReportIssue() {
     if (file) formDataToSend.append('file', file);
 
     try {
-      const res = await fetch('http://localhost:5001/api/report', {
+      const res = await fetch('http://localhost:5000/api/issues', {
         method: 'POST',
         body: formDataToSend,
       });

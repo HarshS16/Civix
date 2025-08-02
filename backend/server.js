@@ -48,6 +48,7 @@ const app = express();
 // Commented db.js import so that the app can run on MongoDB only to rectify the issue of multiple database connections
 
 // require("./config/db.js");     // PostgreSQL
+
  require("./config/mongo.js");  // MongoDB
 
 // === Swagger Docs ===

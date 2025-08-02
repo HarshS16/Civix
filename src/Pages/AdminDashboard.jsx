@@ -6,7 +6,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchReports = async () => {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5001/api/reports', {
+      const res = await fetch('http://localhost:5000/api/reports', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -21,7 +21,7 @@ const AdminDashboard = () => {
 
   const handleStatusChange = async (id, status) => {
     const token = localStorage.getItem('token');
-    await fetch(`http://localhost:5001/api/reports/${id}`, {
+    await fetch(`http://localhost:5000/api/reports/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
-    await fetch(`http://localhost:5001/api/reports/${id}`, {
+    await fetch(`http://localhost:5000/api/reports/${id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` },
     });

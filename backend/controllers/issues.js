@@ -3,8 +3,9 @@ const sendEmail = require('../utils/sendEmail');
 const { asyncHandler } = require('../utils/asyncHandler'); 
 const { uploadOnCloudinary } = require("../utils/cloudinary.js");
 
-const createIssue = asyncHandler(async (req, res) => {
-  const { title, description, phone, email, notifyByEmail } = req.body;
+const createIssue = asyncHandler((req, res) => {
+  try {
+      const { title, description, phone, email, notifyByEmail } = req.body;
 
   if (!title || !description || !email) {
     return res.status(400).json({ error: "Title, description, and email are required" });
@@ -14,7 +15,7 @@ const createIssue = asyncHandler(async (req, res) => {
 
   if (req.file) {
     const localFilePath = req.file?.path;
-    const cloudinaryResponse = await uploadOnCloudinary(localFilePath);
+    const cloudinaryResponse =  uploadOnCloudinary(localFilePath);
     console.log(cloudinaryResponse);
 
     if (cloudinaryResponse) {
@@ -24,7 +25,7 @@ const createIssue = asyncHandler(async (req, res) => {
     }
   }
 
-  const issue = await Issue.create({
+  const issue = Issue.create({
     title,
     description,
     phone,
@@ -34,25 +35,33 @@ const createIssue = asyncHandler(async (req, res) => {
   });
 
   return res.status(201).json({ message: 'Issue submitted successfully', issue });
+    console.log( "report submit successfully: ", res);
+    
+  } catch (error) {
+    console.log(error)
+  }
+
 });
 
-const getAllIssues = asyncHandler(async (req, res) => {
-  const issues = await Issue.find().sort({ createdAt: -1 });
+
+
+const getAllIssues = asyncHandler( (req, res) => {
+  const issues =  Issue.find().sort({ createdAt: -1 });
   return res.json(issues);
 });
 
-const updateIssueStatus = asyncHandler(async (req, res) => {
+const updateIssueStatus = asyncHandler( (req, res) => {
   const { id } = req.params;
   const { newStatus } = req.body;
 
-  const issue = await Issue.findById(id);
+  const issue =  Issue.findById(id);
   if (!issue) return res.status(404).json({ error: 'Issue not found' });
 
   issue.status = newStatus;
-  await issue.save();
+   issue.save();
 
   if (issue.notifyByEmail && issue.email) {
-    await sendEmail(
+     sendEmail(
       issue.email,
       'Civix - Issue Status Update',
       `<p>Your issue <strong>${issue.title}</strong> is now <strong>${newStatus}</strong>.</p>`
