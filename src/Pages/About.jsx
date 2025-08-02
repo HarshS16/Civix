@@ -125,7 +125,7 @@ function About() {
             </motion.div>
             
             <motion.h1
-              className="hero-title"
+              className="hero-title bg-gradient-to-r from-gray-300 to-gray-700 bg-clip-text text-transparent"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
