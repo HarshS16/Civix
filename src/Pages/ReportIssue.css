@@ -27,3 +27,38 @@
 .animation-delay-4000 {
   animation-delay: 4s;
 }
+/* Add this to your existing ReportIssue.css */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(23, 236, 112, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+/* Optional: Add custom animations if you need to use Tailwind's `animate-` utility for the background blobs */
+/* This is likely already in your Tailwind config */
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(30px, -50px) scale(1.1); }
+  60% { transform: translate(-20px, 40px) scale(0.9); }
+  80% { transform: translate(10px, -20px) scale(1.05); }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}

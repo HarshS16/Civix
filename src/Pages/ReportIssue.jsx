@@ -92,12 +92,9 @@ export default React.memo(function ReportIssue() {
     notifyByEmail: false
   });
   const [file, setFile] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Debounced form update function
-  const debouncedUpdate = useDebounce((field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  }, 150);
+  const [notifyByEmail, setNotifyByEmail] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Add new state for loading
 
   // Memoized form handlers
   const handleInputChange = useCallback((field) => (e) => {
@@ -111,6 +108,7 @@ export default React.memo(function ReportIssue() {
 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
+    setIsSubmitting(true); // Start loading
 
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -127,23 +125,25 @@ export default React.memo(function ReportIssue() {
         body: formDataToSend,
       });
 
-      const data = await res.json();
-      alert(data.message);
-
-      // Reset form
-      setFormData({
-        phone: '',
-        email: '',
-        title: '',
-        description: '',
-        notifyByEmail: false
-      });
-      setFile(null);
+      if (res.ok) {
+        const data = await res.json();
+        alert(data.message);
+        setPhone('');
+        setEmail('');
+        setTitle('');
+        setDescription('');
+        setFile(null);
+        setNotifyByEmail(false);
+      } else {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Failed to submit issue.');
+      }
     } catch (err) {
       console.error('Submit error:', err);
-      alert('Failed to submit issue.');
+      alert(err.message);
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false); // Always stop loading, whether successful or not
+
     }
   }, [formData, file, isSubmitting]);
 
@@ -196,14 +196,71 @@ export default React.memo(function ReportIssue() {
         </p>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
-          {formFields.map((field) => (
-            <FormInput
-              key={field.id}
-              {...field}
-              value={formData[field.id]}
-              onChange={handleInputChange(field.id)}
+
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              placeholder="e.g., +91 98765 43210"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
+              required
+              disabled={isSubmitting} // Disable during submission
             />
-          ))}
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
+              required
+              disabled={isSubmitting} // Disable during submission
+            />
+          </div>
+
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+              Issue Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              placeholder="e.g., Login button not working"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 transition duration-150 ease-in-out"
+              required
+              disabled={isSubmitting} // Disable during submission
+            />
+          </div>
+
+          <div>
+            <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+              Describe the Issue
+            </label>
+            <textarea
+              id="description"
+              placeholder="Please provide as much detail as possible about the issue you're experiencing. When did it happen? What steps did you take?"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows="5"
+              className="w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-md shadow-sm p-3 placeholder-gray-400 text-gray-700 dark:text-white dark:bg-gray-900 resize-y transition duration-150 ease-in-out"
+              required
+              disabled={isSubmitting} // Disable during submission
+            ></textarea>
+          </div>
+         
 
           <div>
             <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
@@ -214,6 +271,7 @@ export default React.memo(function ReportIssue() {
               id="file-upload"
               onChange={handleFileChange}
               className="block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer transition duration-150 ease-in-out"
+              disabled={isSubmitting} // Disable during submission
             />
             {file && <p className="mt-2 text-xs text-gray-500 dark:text-gray-300">File selected: {file.name}</p>}
           </div>
@@ -225,6 +283,7 @@ export default React.memo(function ReportIssue() {
               checked={formData.notifyByEmail}
               onChange={handleInputChange('notifyByEmail')}
               className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded cursor-pointer accent-emerald-600"
+              disabled={isSubmitting} // Disable during submission
             />
             <label htmlFor="notifyByEmail" className="ml-2 block text-sm text-gray-700 dark:text-gray-200 cursor-pointer">
               Notify me via email when the issue status changes
@@ -236,13 +295,24 @@ export default React.memo(function ReportIssue() {
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.1 }}
             type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-emerald-600 text-white font-semibold py-3 px-4 rounded-md shadow-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+
+            disabled={isSubmitting} // Disable the button during submission
+            className="w-full bg-emerald-600 text-white font-semibold py-3 px-4 rounded-md shadow-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
           >
-            {isSubmitting ? 'Submitting...' : 'Submit Report'}
+            {isSubmitting ? (
+              <div className="flex items-center justify-center">
+                <div className="spinner mr-2"></div>
+                Submitting...
+              </div>
+            ) : (
+              'Submit Report'
+            )}
+
           </motion.button>
         </form>
       </motion.div>
     </div>
   );
+
 });
+
