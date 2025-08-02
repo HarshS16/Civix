@@ -7,6 +7,7 @@ const intdb = async () => {
     username VARCHAR(100) UNIQUE,           
     email VARCHAR(100) UNIQUE,
     password TEXT,
+     is_verified BOOLEAN DEFAULT false,
     role VARCHAR(10) DEFAULT 'user'
 ); 
 `).catch(err => console.error('Error creating table:', err));
