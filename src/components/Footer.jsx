@@ -27,7 +27,7 @@ const Footer = () => {
       links: [
         { name: "Privacy", href: "/privacy", icon: ShieldCheck },
         { name: "Terms", href: "/terms", icon: ScrollText },
-        { name: "Contributors", href: "https://github.com/HarshS16/Civix/graphs/contributors", icon: UsersIcon },
+        { name: "Contributors", href: "https://civix-phi.vercel.app/contributors", icon: UsersIcon },
       ],
     },
   ];
