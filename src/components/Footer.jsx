@@ -1,9 +1,58 @@
 import { Github, Info, ShieldCheck, ScrollText, Star, UsersIcon, ArrowUpRight, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
-import logoF from '../assets/logo.png'; 
+// Update the logo imports
+import logoLight from '../assets/lightmode-removebg.png';
+import logoDark from '../assets/darkmode-removebg.png';
+import { useState, useEffect } from 'react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  // Updated dark mode detection state with localStorage check
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check localStorage first
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme === 'dark';
+    }
+    // If no saved theme, check system preference
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return true;
+    }
+    // Check DOM as fallback
+    return document.documentElement.classList.contains('dark');
+  });
+
+  // Updated effect to listen for dark mode changes
+  useEffect(() => {
+    // Function to update dark mode state
+    const updateDarkMode = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setIsDarkMode(isDark);
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    };
+
+    // Initial check
+    updateDarkMode();
+
+    // Set up observer for class changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          updateDarkMode();
+        }
+      });
+    });
+
+    // Start observing
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    // Clean up
+    return () => observer.disconnect();
+  }, []);
 
   const socialLinks = [
     {
@@ -42,7 +91,7 @@ const Footer = () => {
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center space-x-3">
               <img 
-                src={logoF} 
+                src={isDarkMode ? logoDark : logoLight} 
                 alt="Civix Logo" 
                 className="w-20 h-auto" 
               />
@@ -94,8 +143,6 @@ const Footer = () => {
               </ul>
             </div>
           ))}
-
-          
         </div>
 
         <div className="border-t border-green-500/20 dark:border-green-500/10 pt-8">

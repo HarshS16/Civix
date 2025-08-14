@@ -3,10 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import Switch from '../DarkModeToggle';
 import { jwtDecode } from 'jwt-decode';
 import { useAuth } from '@clerk/clerk-react';
-import logo from '../assets/logo.png';
+// Updated logo imports
+import logoLight from '../assets/lightmode-removebg.png';
+import logoDark from '../assets/darkmode-removebg.png';
 import { title } from 'process';
 import { Info, Phone, Users } from 'lucide-react';
-
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -14,6 +15,52 @@ const Navbar = () => {
   const [rightDropdownOpen, setRightDropdownOpen] = useState(false);
   const rightDropdownRef = useRef(null);
   const { isSignedIn, signOut } = useAuth();
+
+  // Updated dark mode detection state with localStorage check
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check localStorage first
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme === 'dark';
+    }
+    // If no saved theme, check system preference
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return true;
+    }
+    // Check DOM as fallback
+    return document.documentElement.classList.contains('dark');
+  });
+
+  // Updated effect to listen for dark mode changes
+  useEffect(() => {
+    // Function to update dark mode state
+    const updateDarkMode = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setIsDarkMode(isDark);
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    };
+
+    // Initial check
+    updateDarkMode();
+
+    // Set up observer for class changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          updateDarkMode();
+        }
+      });
+    });
+
+    // Start observing
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    // Clean up
+    return () => observer.disconnect();
+  }, []);
 
   const handleNav = (cb) => {
     setMobileMenuOpen(false);
@@ -88,7 +135,6 @@ const Navbar = () => {
   }
 
   const navLinks = [
-    
     {
       title: "About",
       href: "/about",
@@ -109,17 +155,20 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-[hsla(240,5%,15%,0.8)] backdrop-blur">
-   <div className="container flex h-14 items-center justify-between">
-
+      <div className="container flex h-14 items-center justify-between">
 
         <div className="flex items-center">
           <button onClick={() => { setMobileMenuOpen(false); navigate('/'); }} className="flex items-center gap-2 hover:text-emerald-500 transition-colors duration-300">
-            <img src={logo} alt="Civix logo" className="h-8 w-auto" />
+            {/* Updated logo implementation */}
+            <img 
+              src={isDarkMode ? logoDark : logoLight} 
+              alt="Civix logo" 
+              className="h-8 w-auto" 
+            />
           </button>
         </div>
 
         <nav className="hidden md:flex gap-4">
-
           {navLinks.map((navItem) => {
             const Icon = navItem.icon;
             return (
@@ -135,15 +184,9 @@ const Navbar = () => {
           })}
         </nav>
 
-
-
-
-
-
         <button
           id="mobile-nav-toggle"
           className="md:hidden flex items-center justify-center p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500"
-
           aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={mobileMenuOpen}
           onClick={() => setMobileMenuOpen((open) => !open)}
@@ -158,11 +201,9 @@ const Navbar = () => {
         </button>
 
         <div className="hidden md:flex items-center gap-4">
-
           <button
             onClick={handleSOSClick}
             className="hidden md:inline-flex items-center justify-center rounded-md text-sm font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-600 text-white hover:bg-red-700 hover:scale-105 shadow-lg hover:shadow-xl h-9 px-4 py-2"
-
             title="Emergency SOS"
             aria-label="Emergency SOS Button"
           >
@@ -184,8 +225,6 @@ const Navbar = () => {
             <Switch />
           </div>
 
-
-
           <div className="relative" ref={rightDropdownRef}>
             <button
               onClick={() => setRightDropdownOpen(!rightDropdownOpen)}
@@ -201,56 +240,53 @@ const Navbar = () => {
               <div className="absolute right-0 mt-2 w-56 rounded-lg bg-gradient-to-r from-emerald-400 to-teal-500 p-px shadow-xl z-50">
                 <div className="bg-white dark:bg-gray-900 rounded-[7px]">
                   <div className="p-1">
-
-                  <button
-                    onClick={() => { setRightDropdownOpen(false); navigate('/civic-education'); }}
-                    className="w-full text-left px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-200 flex items-center gap-2"
-                  >
-                    Civic Education & Rights
-                  </button>
-                  
-                  {!(isSignedIn || token) ? (
                     <button
-                      onClick={() => { setRightDropdownOpen(false); navigate('/login'); }}
+                      onClick={() => { setRightDropdownOpen(false); navigate('/civic-education'); }}
                       className="w-full text-left px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-200 flex items-center gap-2"
                     >
-                      Login
+                      Civic Education & Rights
                     </button>
-                  ) : (
-                    <>
-                      <hr className="my-1 border-gray-200 dark:border-gray-700" />
+                    
+                    {!(isSignedIn || token) ? (
                       <button
-                        onClick={() => {
-                          setRightDropdownOpen(false);
-                          navigate('/profile');
-                        }}
+                        onClick={() => { setRightDropdownOpen(false); navigate('/login'); }}
                         className="w-full text-left px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-200 flex items-center gap-2"
                       >
-                        Profile
+                        Login
                       </button>
-                      <button
-                        onClick={() => {
-                          setRightDropdownOpen(false);
-                          navigate(isAdmin ? '/admin' : '/user/dashboard');
-                        }}
-                        className="w-full text-left px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-200 flex items-center gap-2"
-                      >
-                        Dashboard
-                      </button>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left px-3 py-2 text-sm rounded-md text-red-600 dark:text-red-400 hover:text-white hover:bg-gradient-to-r from-red-500 to-rose-600 transition-all duration-200 flex items-center gap-2"
-                      >
-                        Logout
-                      </button>
-                    </>
-                  )}
+                    ) : (
+                      <>
+                        <hr className="my-1 border-gray-200 dark:border-gray-700" />
+                        <button
+                          onClick={() => {
+                            setRightDropdownOpen(false);
+                            navigate('/profile');
+                          }}
+                          className="w-full text-left px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-200 flex items-center gap-2"
+                        >
+                          Profile
+                        </button>
+                        <button
+                          onClick={() => {
+                            setRightDropdownOpen(false);
+                            navigate(isAdmin ? '/admin' : '/user/dashboard');
+                          }}
+                          className="w-full text-left px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-200 flex items-center gap-2"
+                        >
+                          Dashboard
+                        </button>
+                        <button
+                          onClick={handleLogout}
+                          className="w-full text-left px-3 py-2 text-sm rounded-md text-red-600 dark:text-red-400 hover:text-white hover:bg-gradient-to-r from-red-500 to-rose-600 transition-all duration-200 flex items-center gap-2"
+                        >
+                          Logout
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
             )}
-
-
           </div>
         </div>
       </div>
@@ -263,7 +299,6 @@ const Navbar = () => {
             aria-hidden="true"
           />
           <div className="md:hidden fixed inset-x-0 top-0 z-[100] animate-fade-slide-up">
-
             <nav id="mobile-nav-panel" className="relative flex flex-col items-center w-full h-[100vh] bg-white dark:bg-[#18181b] pt-24 gap-6 shadow-xl">
               <button
                 className="absolute top-6 right-6 text-3xl text-emerald-600 focus:outline-none"
@@ -377,8 +412,6 @@ const Navbar = () => {
                 <Switch />
               </div>
             </nav>
-.
-
           </div>
         </>
       )}
