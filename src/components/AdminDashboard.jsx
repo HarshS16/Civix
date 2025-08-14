@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
-  Users, 
-  AlertCircle, 
-  CheckCircle2, 
-  Clock, 
-  XCircle, 
+import {
+  Users,
+  AlertCircle,
+  CheckCircle2,
+  Clock,
+  XCircle,
   Search,
   Filter,
   Download,
@@ -15,7 +15,12 @@ import {
   LogOut,
   BarChart3,
   MessageSquare,
-  TrendingUp
+  TrendingUp,
+  Home,
+  FileText,
+  ChevronLeft,
+  ChevronRight,
+  User
 } from "lucide-react";
 
 import { motion } from "framer-motion";
@@ -26,6 +31,18 @@ const AdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const sidebarMenu = [
+  { key: 'dashboard', label: 'Dashboard', icon: Home, route: '/admin/dashboard' },
+  { key: 'analytics', label: 'Analytics', icon: BarChart3, route: '/admin/analytics' },
+  { key: 'users', label: 'Users', icon: Users, route: '/admin/users' },
+  { key: 'documents', label: 'Documents', icon: FileText, route: '/admin/documents' },
+  { key: 'notifications', label: 'Notifications', icon: Bell, route: '/admin/notifications' },
+  { key: 'settings', label: 'Settings', icon: Settings, route: '/admin/settings' },
+];
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeRoute, setActiveRoute] = useState('/admin/dashboard');
 
   // Mock data for demonstration
   const mockIssues = [
@@ -161,8 +178,109 @@ const AdminDashboard = () => {
     );
   };
 
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/20 dark:from-slate-900 dark:via-slate-800/50 dark:to-emerald-950/20">
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+      <aside
+        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 backdrop-blur-xl border-r border-gray-200/50 dark:bg-gray-900/80 dark:border-gray-800/50 flex flex-col shadow-xl ${
+          isSidebarOpen ? 'w-[64]' : 'w-16'
+        }`}
+      >
+        <div className="relative flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-gray-800/50">
+          <div className={`flex items-center transition-all duration-300 ${isSidebarOpen ? 'opacity-100' : 'opacity-0 w-0'}`}>
+            <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-sm">C</span>
+            </div>
+            {isSidebarOpen && (
+              <span className="ml-3 text-xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
+                Civix
+              </span>
+            )}
+          </div>
+          <button
+            type="button"
+            aria-label={isSidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className={`p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 ${
+              !isSidebarOpen ? 'mx-auto' : ''
+            }`}
+          >
+            {isSidebarOpen ? (
+              <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            ) : (
+              <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            )}
+          </button>
+        </div>
+        {isSidebarOpen && (
+          <div className="p-4 border-b border-gray-200/50 dark:border-gray-800/50">
+            <div className="relative">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search..."
+                className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
+              />
+            </div>
+          </div>
+        )}
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+          {sidebarMenu.map((item) => {
+            const isActive = item.route === activeRoute;
+            const Icon = item.icon;
+            return (
+              <div key={item.key} className="relative group">
+                <button
+                  type="button"
+                  className={`
+                    w-full flex items-center py-3 px-3 rounded-xl text-sm font-medium transition-all duration-200 group relative overflow-hidden
+                    ${isSidebarOpen ? '' : 'justify-center'}
+                    ${isActive
+                      ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/25 transform scale-[1.02]'
+                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white hover:shadow-md'
+                    }
+                  `}
+                  onClick={() => navigate(item.route)}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {isActive && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 opacity-10 rounded-xl" />
+                  )}
+                  <div className="relative z-10 flex items-center">
+                    <Icon
+                      className={`w-5 h-5 transition-all duration-200 ${
+                        isSidebarOpen ? 'mr-3' : ''
+                      } ${
+                        isActive
+                          ? 'text-white'
+                          : 'text-gray-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
+                      }`}
+                    />
+                    {isSidebarOpen && (
+                      <span className="relative z-10 transition-all duration-300">
+                        {item.label}
+                      </span>
+                    )}
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                </button>
+                {!isSidebarOpen && (
+                  <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-2 text-white text-sm rounded-lg opacity-0 group-hover:transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                    {item.label}
+                    <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent0" />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </nav>
+      </aside>
       <motion.header 
         className="bg-white/80 backdrop-blur-md border-b border-green-100 sticky top-0 z-40 dark:bg-slate-900/80 dark:border-slate-700"
         initial={{ opacity: 0, y: -20 }}

@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import React, { useCallback, useMemo, useState, useEffect } from "react";
 import csrfManager from "../utils/csrfManager";
+import jsPDF from "jspdf";
 
 const useDebounce = (callback, delay) => {
   const [debounceTimer, setDebounceTimer] = useState(null);
@@ -136,6 +137,7 @@ export default function ReportIssue() {
   const [file, setFile] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [submittedData, setSubmittedData] = useState(null);
 
   const handleInputChange = useCallback(
     (field) => (e) => {
@@ -150,13 +152,40 @@ export default function ReportIssue() {
     setFile(e.target.files[0]);
   }, []);
 
+  const downloadReceipt = useCallback(
+    (data) => {
+      try {
+        const doc = new jsPDF();
+        const now = new Date();
+        doc.setFontSize(18);
+        doc.text("Issue Report Receipt", 15, 20);
+        doc.setFontSize(12);
+        doc.text(`Date: ${now.toLocaleString()}`, 15, 30);
+        doc.text("Submitted Details:", 15, 40);
+        let y = 50;
+        doc.text(`Phone: ${data.phone}`, 15, y); y += 10;
+        doc.text(`Email: ${data.email}`, 15, y); y += 10;
+        doc.text(`Title: ${data.title}`, 15, y); y += 10;
+        doc.text("Description:", 15, y); y += 8;
+        const descLines = doc.splitTextToSize(data.description || "", 180);
+        doc.text(descLines, 20, y); y += descLines.length * 8 + 2;
+        doc.text(`Location: ${data.location}`, 15, y);
+        doc.save("issue_receipt.pdf");
+      } catch (pdfErr) {
+        console.error("PDF generation error:", pdfErr);
+      }
+    },
+    []
+  );
+
   const handleSubmit = useCallback(
     async (e) => {
       if (e) e.preventDefault();
       if (isSubmitting) return;
 
       setIsSubmitting(true);
-      setSubmitStatus(null);
+      setSubmitStatus("success");
+      setSubmittedData({ ...formData });
 
       const formDataToSend = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
@@ -165,13 +194,10 @@ export default function ReportIssue() {
       if (file) formDataToSend.append("file", file);
 
       try {
-        // Use CSRF-protected API call
         const response = await csrfManager.secureFetch("/api/issues", {
           method: "POST",
           body: formDataToSend,
-          // Note: Don't set Content-Type header for FormData, let browser set it
           headers: {
-            // Remove Content-Type to let browser set boundary for FormData
           },
         });
 
@@ -186,33 +212,36 @@ export default function ReportIssue() {
         const result = await response.json();
         console.log("Issue submitted successfully:", result);
 
-        setSubmitStatus("success");
         setFormData({
           phone: "",
           email: "",
           title: "",
           description: "",
           notifyByEmail: false,
+          location: "",
         });
         setFile(null);
+
+        try {
+          downloadReceipt(formData);
+        } catch (pdfErr) {
+          console.error("PDF generation error:", pdfErr);
+        }
 
         setTimeout(() => setSubmitStatus(null), 5000);
       } catch (err) {
         console.error("Submit error:", err);
-        setSubmitStatus("error");
 
-        // Handle specific CSRF errors
         if (err.message.includes("CSRF") || err.message.includes("403")) {
           console.warn("CSRF token issue, clearing token for retry");
           csrfManager.clearToken();
         }
 
-        setTimeout(() => setSubmitStatus(null), 5000);
       } finally {
         setIsSubmitting(false);
       }
     },
-    [formData, file, isSubmitting]
+    [formData, file, isSubmitting, downloadReceipt]
   );
 
   const formFields = useMemo(
@@ -430,12 +459,23 @@ export default function ReportIssue() {
             </button>
 
             {submitStatus === "success" && (
-              <div className="flex items-center justify-center space-x-2 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-xl">
-                <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
-                <span className="text-sm font-medium text-green-800 dark:text-green-200">
-                  Report submitted successfully! We'll be in touch soon.
-                </span>
-              </div>
+              <>
+                <div className="flex items-center justify-center space-x-2 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-xl">
+                  <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+                  <span className="text-sm font-medium text-green-800 dark:text-green-200">
+                    Report submitted successfully! We'll be in touch soon.
+                  </span>
+                </div>
+                <div className="flex justify-center mt-4">
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-500 dark:to-emerald-500 text-white rounded-lg shadow hover:from-green-700 hover:to-emerald-700 dark:hover:from-green-600 dark:hover:to-emerald-600 font-semibold transition-all duration-200"
+                    onClick={() => submittedData && downloadReceipt(submittedData)}
+                  >
+                    Download Receipt as PDF
+                  </button>
+                </div>
+              </>
             )}
 
             {submitStatus === "error" && (
