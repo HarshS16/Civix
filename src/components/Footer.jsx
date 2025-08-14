@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Github, Info, ShieldCheck, ScrollText, Star, UsersIcon, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 // Update the logo imports
