@@ -1,13 +1,61 @@
-import { useState } from "react";
 import { Github, Info, ShieldCheck, ScrollText, Star, UsersIcon, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import logoF from "../assets/logo.png";
+// Update the logo imports
+import logoLight from '../assets/lightmode-removebg.png';
+import logoDark from '../assets/darkmode-removebg.png';
+import { useState, useEffect } from 'react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [selectedRating, setSelectedRating] = useState(null);
   const [feedbackText, setFeedbackText] = useState("");
   const [message, setMessage] = useState("");
+
+  // Updated dark mode detection state with localStorage check
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check localStorage first
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme === 'dark';
+    }
+    // If no saved theme, check system preference
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return true;
+    }
+    // Check DOM as fallback
+    return document.documentElement.classList.contains('dark');
+  });
+
+  // Updated effect to listen for dark mode changes
+  useEffect(() => {
+    // Function to update dark mode state
+    const updateDarkMode = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setIsDarkMode(isDark);
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    };
+
+    // Initial check
+    updateDarkMode();
+
+    // Set up observer for class changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          updateDarkMode();
+        }
+      });
+    });
+
+    // Start observing
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    // Clean up
+    return () => observer.disconnect();
+  }, []);
 
   const socialLinks = [
     {
@@ -55,7 +103,11 @@ const Footer = () => {
           {/* Logo & description */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center space-x-3">
-              <img src={logoF} alt="Civix Logo" className="w-20 h-auto" />
+              <img 
+                src={isDarkMode ? logoDark : logoLight} 
+                alt="Civix Logo" 
+                className="w-20 h-auto" 
+              />
             </div>
             <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed max-w-md">
               Empowering citizens through technology. Stay informed, make better decisions, and engage with civic life through our innovative platform.
