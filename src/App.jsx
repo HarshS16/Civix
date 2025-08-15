@@ -11,6 +11,8 @@ import RequireAdmin from './components/auth/RequireAdmin';
 import AdminDashboard from './components/AdminDashboard';
 import Error404 from './components/Error404';
 import Navbar from './components/Navbar';
+import ChatbotWidget from "./components/ChatbotWidget";
+
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 
