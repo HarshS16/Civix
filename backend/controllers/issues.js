@@ -79,5 +79,22 @@ const getIssueById = asyncHandler(async (req, res) => {
   return res.json(issue);
 });
 
+const deleteIssue = asyncHandler(async (req, res) => {
+  const { id } = req.params;
 
-module.exports = { createIssue, getAllIssues, updateIssueStatus,getIssueById };
+  // Validate MongoDB ObjectId format
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid issue ID format" });
+  }
+
+  const issue = await Issue.findByIdAndDelete(id);
+
+  if (!issue) {
+    return res.status(404).json({ error: "Issue not found" });
+  }
+
+  return res.json({ message: "Issue deleted successfully", issue });
+});
+
+
+module.exports = { createIssue, getAllIssues, updateIssueStatus,getIssueById,deleteIssue };
