@@ -44,6 +44,7 @@ import Users from './Pages/Users';
 import Documents from './Pages/Documents';
 import Settings from './Pages/Settings';
 import Notification from './Pages/Notification';
+import NearbyServices from './Pages/NearbyServices';
 
 
 const App = () => {
@@ -114,6 +115,7 @@ const App = () => {
             <Route path='/admin/documents' element={<Documents/>}/>
             <Route path='/admin/settings' element={<Settings/>}/>
             <Route path='/admin/notifications' element={<Notification/>}/>
+            <Route path='/nearby-services' element={<NearbyServices/>}/>
 
 
 

@@ -10,7 +10,8 @@ import {
   BookOpen,
   Bell,
   X,
-  MessageCircle
+  MessageCircle,
+  MapPin
 } from "lucide-react";
 
 const UserDashboard = () => {
@@ -25,7 +26,6 @@ const UserDashboard = () => {
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
-  // Hook to handle clicks outside of the dropdown
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -211,6 +211,14 @@ const UserDashboard = () => {
             icon={MessageCircle}
             gradient="from-green-700 to-teal-700"
             shadowColor="shadow-green-700/20"
+          />
+          <DashboardCard
+            title="Nearby Services"
+            description="Find hospitals, police stations, and fire stations close to you."
+            onClick={() => navigate("/nearby-services")}
+            icon={MapPin}
+            gradient="from-green-500 to-green-800"
+            shadowColor="shadow-green-500/20"
           />
         </div>
       </main>
