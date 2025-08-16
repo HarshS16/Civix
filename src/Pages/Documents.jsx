@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Filter, Download, Eye, Edit, Trash2, FileText, Calendar, User, Tag, Plus, MoreHorizontal,  Home, BarChart3, Bell, Settings, ChevronRight,ChevronLeft, Users } from 'lucide-react';
+import { Search, Filter, Upload, Download, Eye, Edit, Trash2, FileText, Calendar, User, Tag, Plus, MoreHorizontal,  Home, BarChart3, Bell, Settings, ChevronRight,ChevronLeft, Users } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 
 const DocumentsPage = () => {
@@ -173,13 +173,15 @@ const DocumentsPage = () => {
         <div className="mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Documents</h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your organization's documents and files</p>
+              <h1 className="text-2xl font-bold ">Documents Management</h1>
+              <p className="text-gray-600 mt-1">Manage platform documents and files</p>
             </div>
-            <button className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
-              <Plus size={20} />
-              Upload Document
-            </button>
+            <div className="flex items-center space-x-4">
+              <button className="bg-green-600 hover:bg-green-700  px-4 py-2 rounded-lg transition-colors flex items-center">
+                <Upload className="h-4 w-4 mr-2" />
+                Upload Document
+              </button>
+            </div>
           </div>
         </div>
 
@@ -207,7 +209,7 @@ const DocumentsPage = () => {
                   placeholder="Search documents..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg   focus:ring-2 focus:ring-green-500 focus:border-green-500"
                 />
               </div>
             </div>

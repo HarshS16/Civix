@@ -132,7 +132,7 @@ const navigate = useNavigate();
   const unreadCount = notifications.filter(n => !n.read).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-6">
+    <div className="min-h-screen p-6">
         {isSidebarOpen && (
                 <div
                   className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"

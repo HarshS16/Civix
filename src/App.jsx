@@ -9,7 +9,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import PrivateRoute from './components/PrivateRoute';
 import RequireAdmin from './components/auth/RequireAdmin';
-import AdminDashboard from './components/AdminDashboard';
+import AdminDashboard from './Pages/AdminDashboard';
 import Error404 from './components/Error404';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -49,6 +49,7 @@ import Notification from './Pages/Notification';
 const App = () => {
   const { isSignedIn } = useAuth();
   const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
   
   return (
     <>
@@ -69,7 +70,7 @@ const App = () => {
         }}
       />
           
-      <Navbar/>
+      {!isAdminRoute && <Navbar />}
 
       <main className="min-h-screen">
         <AnimatePresence mode="wait" initial={false}>
@@ -115,17 +116,6 @@ const App = () => {
             <Route path='/admin/settings' element={<Settings/>}/>
             <Route path='/admin/notifications' element={<Notification/>}/>
 
-
-
-            {/* Protected Routes */}
-            <Route
-              path="/admin"
-              element={
-                <RequireAdmin>
-                  <AdminDashboard />
-                </RequireAdmin>
-              }
-            />
             <Route
               path="/admin/dashboard"
               element={
@@ -158,7 +148,8 @@ const App = () => {
         </AnimatePresence>
       </main>
 
-      <Footer />
+      {!isAdminRoute && <Footer />}
+
     </>
   );
 };

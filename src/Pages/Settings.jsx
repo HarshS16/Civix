@@ -120,15 +120,15 @@ const SettingsPage = () => {
             type="text"
             value={settings.systemName}
             onChange={(e) => handleInputChange('systemName', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Timezone</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">Timezone</label>
           <select
             value={settings.timezone}
             onChange={(e) => handleInputChange('timezone', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           >
             <option value="America/New_York">Eastern Time</option>
             <option value="America/Chicago">Central Time</option>
@@ -139,12 +139,12 @@ const SettingsPage = () => {
       </div>
       
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">System Description</label>
+        <label className="block text-sm font-medium text-gray-500 mb-2">System Description</label>
         <textarea
           value={settings.systemDescription}
           onChange={(e) => handleInputChange('systemDescription', e.target.value)}
           rows={3}
-          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
         />
       </div>
 
@@ -181,8 +181,8 @@ const SettingsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex items-center justify-between">
             <div>
-              <label className="font-medium text-gray-700 dark:text-gray-300">Two-Factor Authentication</label>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Require 2FA for admin accounts</p>
+              <label className="font-medium text-gray-500">Two-Factor Authentication</label>
+              <p className="text-sm text-gray-500">Require 2FA for admin accounts</p>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
               <input
@@ -199,30 +199,30 @@ const SettingsPage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Session Timeout (minutes)</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">Session Timeout (minutes)</label>
           <input
             type="number"
             value={settings.sessionTimeout}
             onChange={(e) => handleInputChange('sessionTimeout', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password Expiry (days)</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">Password Expiry (days)</label>
           <input
             type="number"
             value={settings.passwordExpiry}
             onChange={(e) => handleInputChange('passwordExpiry', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Max Login Attempts</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">Max Login Attempts</label>
           <input
             type="number"
             value={settings.maxLoginAttempts}
             onChange={(e) => handleInputChange('maxLoginAttempts', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
       </div>
@@ -231,13 +231,13 @@ const SettingsPage = () => {
         <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-4">Change Password</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Current Password</label>
+            <label className="block text-sm font-medium text-gray-500 mb-2">Current Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 value={settings.currentPassword}
                 onChange={(e) => handleInputChange('currentPassword', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent pr-10 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent pr-10"
               />
               <button
                 type="button"
@@ -253,21 +253,21 @@ const SettingsPage = () => {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">New Password</label>
+            <label className="block text-sm font-medium text-gray-500 mb-2">New Password</label>
             <input
               type={showPassword ? "text" : "password"}
               value={settings.newPassword}
               onChange={(e) => handleInputChange('newPassword', e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+              className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm Password</label>
+            <label className="block text-sm font-medium text-gray-500 mb-2">Confirm Password</label>
             <input
               type={showPassword ? "text" : "password"}
               value={settings.confirmPassword}
               onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+              className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -338,12 +338,12 @@ const SettingsPage = () => {
       </div>
       
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Maximum Users Per District</label>
+        <label className="block text-sm font-medium text-gray-500 mb-2">Maximum Users Per District</label>
         <input
           type="number"
           value={settings.maxUsersPerDistrict}
           onChange={(e) => handleInputChange('maxUsersPerDistrict', e.target.value)}
-          className="w-full md:w-1/3 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          className="w-full md:w-1/3 px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
         />
       </div>
     </div>
@@ -362,8 +362,8 @@ const SettingsPage = () => {
           ].map(({ key, label, desc }) => (
             <div key={key} className="flex items-center justify-between">
               <div>
-                <h4 className="font-medium text-gray-800 dark:text-gray-200">{label}</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{desc}</p>
+                <h4 className="font-medium text-gray-500">{label}</h4>
+                <p className="text-sm text-gray-500">{desc}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -380,11 +380,11 @@ const SettingsPage = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Result Publication</label>
+        <label className="block text-sm font-medium text-gray-500 mb-2">Result Publication</label>
         <select
           value={settings.resultPublication}
           onChange={(e) => handleInputChange('resultPublication', e.target.value)}
-          className="w-full md:w-1/2 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          className="w-full md:w-1/2 px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
         >
           <option value="immediate">Immediate</option>
           <option value="delayed">Delayed (24 hours)</option>
@@ -398,50 +398,50 @@ const SettingsPage = () => {
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">SMTP Server</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">SMTP Server</label>
           <input
             type="text"
             value={settings.smtpServer}
             onChange={(e) => handleInputChange('smtpServer', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">SMTP Port</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">SMTP Port</label>
           <input
             type="text"
             value={settings.smtpPort}
             onChange={(e) => handleInputChange('smtpPort', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Username</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">Username</label>
           <input
             type="email"
             value={settings.smtpUsername}
             onChange={(e) => handleInputChange('smtpUsername', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">Password</label>
           <input
             type="password"
             value={settings.smtpPassword}
             onChange={(e) => handleInputChange('smtpPassword', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
       </div>
       
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">From Name</label>
+        <label className="block text-sm font-medium text-gray-500 mb-2">From Name</label>
         <input
           type="text"
           value={settings.emailFromName}
           onChange={(e) => handleInputChange('emailFromName', e.target.value)}
-          className="w-full md:w-1/2 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          className="w-full md:w-1/2 px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
         />
       </div>
     </div>
@@ -469,11 +469,11 @@ const SettingsPage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Backup Frequency</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">Backup Frequency</label>
           <select
             value={settings.backupFrequency}
             onChange={(e) => handleInputChange('backupFrequency', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           >
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
@@ -481,20 +481,20 @@ const SettingsPage = () => {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Retention Period (days)</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">Retention Period (days)</label>
           <input
             type="number"
             value={settings.retentionPeriod}
             onChange={(e) => handleInputChange('retentionPeriod', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Backup Location</label>
+          <label className="block text-sm font-medium text-gray-500 mb-2">Backup Location</label>
           <select
             value={settings.backupLocation}
             onChange={(e) => handleInputChange('backupLocation', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           >
             <option value="cloud">Cloud Storage</option>
             <option value="local">Local Storage</option>
@@ -519,7 +519,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-6">
+    <div className="min-h-screen p-6">
         {isSidebarOpen && (
                         <div
                           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
@@ -527,8 +527,8 @@ const SettingsPage = () => {
                         />
                       )}
                       <aside
-                        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-700/50 flex flex-col shadow-xl ${
-                          isSidebarOpen ? 'w-64' : 'w-16'
+                        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
+                          isSidebarOpen ? 'w-[64]' : 'w-16'
                         }`}
                       >
                         <div className="relative flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-gray-700/50">
@@ -620,16 +620,16 @@ const SettingsPage = () => {
                           })}
                         </nav>
                       </aside>
-      <div className={`max-w-6xl mx-auto transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-16'}`}>
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-emerald-100 dark:border-gray-700 mb-6 p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="rounded-2xl shadow-lg border border-emerald-100 mb-6 p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="bg-emerald-100 dark:bg-emerald-900/30 p-3 rounded-xl">
                 <Settings className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">System Settings</h1>
-                <p className="text-gray-600 dark:text-gray-400">Configure and manage your Civix platform</p>
+                <h1 className="text-2xl font-bold ">System Settings</h1>
+                <p className="text-gray-500">Configure and manage your Civix platform</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
@@ -659,7 +659,7 @@ const SettingsPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-emerald-100 dark:border-gray-700 p-4">
+            <div className="rounded-2xl shadow-lg border border-emerald-100 p-4">
               <nav className="space-y-2">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
@@ -669,8 +669,8 @@ const SettingsPage = () => {
                       onClick={() => setActiveTab(tab.id)}
                       className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
                         activeTab === tab.id
-                          ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 font-medium'
-                          : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+                          ? 'bg-emerald-100 text-emerald-700 font-medium'
+                          : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
                       }`}
                     >
                       <Icon className="h-5 w-5" />
@@ -683,12 +683,12 @@ const SettingsPage = () => {
           </div>
 
           <div className="lg:col-span-3">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-emerald-100 dark:border-gray-700 p-8">
+            <div className="rounded-2xl shadow-lg border border-emerald-100 p-8">
               <div className="mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+                <h2 className="text-xl font-semibold ">
                   {tabs.find(tab => tab.id === activeTab)?.name}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400 mt-1">
+                <p className="text-gray-500 mt-1">
                   Configure your {tabs.find(tab => tab.id === activeTab)?.name.toLowerCase()} preferences
                 </p>
               </div>

@@ -189,11 +189,11 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     if (!user) return null;
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-50 p-4">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+      <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">User Details</h2>
+              <h2 className="text-xl font-semibold ">User Details</h2>
               <button 
                 onClick={onClose}
                 className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
@@ -205,11 +205,11 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
           
           <div className="p-6 space-y-6">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
-                <User className="h-8 w-8 text-green-600 dark:text-green-400" />
+              <div className="w-16 h-16 rounded-full flex items-center justify-center">
+                <User className="h-8 w-8 text-green-600" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{user.name}</h3>
+                <h3 className="text-lg font-semibold ">{user.name}</h3>
                 <div className="flex items-center space-x-2 mt-1">
                   {getStatusIcon(user.status)}
                   <span className="text-sm text-gray-600 dark:text-gray-400 capitalize">{user.status}</span>
@@ -260,20 +260,20 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                   <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Activity Stats</label>
                   <div className="mt-2 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Posts Created</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{user.posts}</span>
+                      <span className="text-gray-600">Posts Created</span>
+                      <span className="font-medium ">{user.posts}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">Comments</span>
                       <span className="font-medium text-gray-900 dark:text-white">{user.comments}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Votes Cast</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{user.votes}</span>
+                      <span className="text-gray-600">Votes Cast</span>
+                      <span className="font-medium">{user.votes}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Reputation</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{user.reputation}/5.0</span>
+                      <span className="text-gray-600">Reputation</span>
+                      <span className="font-medium ">{user.reputation}/5.0</span>
                     </div>
                   </div>
                 </div>
@@ -306,7 +306,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   };
 
   return (
-    <div className="min-h-screen ml-10 bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen ml-10">
         {isSidebarOpen && (
                 <div
                   className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
@@ -314,7 +314,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                 />
               )}
               <aside
-                className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-700/50 flex flex-col shadow-xl ${
+                className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 ease-in-out  backdrop-blur-xl border-r border-gray-200/50 flex flex-col shadow-xl ${
                   isSidebarOpen ? 'w-[64]' : 'w-16'
                 }`}
               >
@@ -407,12 +407,12 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                   })}
                 </nav>
               </aside>
-      <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-green-100 dark:border-gray-700">
+      <div className="shadow-sm border-b border-green-100">
         <div className="px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Users Management</h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">Manage platform users and their permissions</p>
+              <h1 className="text-2xl font-bold ">Users Management</h1>
+              <p className="text-gray-500 mt-1">Manage platform users and their permissions</p>
             </div>
             <div className="flex items-center space-x-4">
               <button className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 text-white px-4 py-2 rounded-lg transition-colors">
@@ -424,7 +424,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
       </div>
 
       <div className="px-8 py-6">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-green-100 dark:border-gray-700 p-6 mb-6">
+        <div className="rounded-lg shadow-sm border border-green-100 p-6 mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 flex-1">
               <div className="relative flex-1 max-w-md">
@@ -434,14 +434,14 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                   placeholder="Search users..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-green-500 focus:border-green-500"
                 />
               </div>
               
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="border border-gray-300 rounded-lg px-4 py-2  text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500"
               >
                 <option value="all">All Status</option>
                 <option value="active">Active</option>
@@ -452,7 +452,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
               <select
                 value={roleFilter}
                 onChange={(e) => setRoleFilter(e.target.value)}
-                className="border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="border border-gray-300 rounded-lg px-4 py-2  text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500"
               >
                 <option value="all">All Roles</option>
                 <option value="citizen">Citizens</option>
@@ -477,10 +477,10 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-green-100 dark:border-gray-700 overflow-hidden">
+        <div className="rounded-lg shadow-sm border border-green-100 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-gray-900">
+              <thead className="bg-gray-200">
                 <tr>
                   <th className="px-6 py-3 text-left">
                     <input
@@ -510,9 +510,9 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="divide-y divide-gray-200">
                 {paginatedUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <tr key={user.id} className="hover:bg-gray-500">
                     <td className="px-6 py-4">
                       <input
                         type="checkbox"
@@ -522,11 +522,19 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                       />
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">{user.name}</span>
+                      <div className="flex items-center">
+                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                          <User className="h-5 w-5 text-green-600" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium ">{user.name}</div>
+                          <div className="text-sm text-gray-500">{user.location}</div>
+                        </div>
+                      </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">{user.phone}</div>
+                      <div className="text-sm ">{user.email}</div>
+                      <div className="text-sm text-gray-500">{user.phone}</div>
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-2 py-1 rounded-full text-xs ${getRoleColor(user.role)}`}>
@@ -536,13 +544,13 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-1">
                         {getStatusIcon(user.status)}
-                        <span className="capitalize text-sm">{user.status}</span>
+                        <span className="ml-2 text-sm  capitalize">{user.status}</span>
+                        {user.verified && <CheckCircle className="h-4 w-4 text-blue-500 ml-2" />}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
-                        {user.posts} posts, {user.comments} comments
-                      </span>
+                      <div className="text-sm ">{user.posts} posts</div>
+                      <div className="text-sm text-gray-500">Last: {user.lastActive}</div>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-2">
@@ -566,7 +574,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
             </table>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900 px-6 py-3 border-t border-gray-200 dark:border-gray-700">
+          <div className="bg-gray-200 px-6 py-3 border-t border-gray-200">
             <div className="flex items-center justify-between">
               <div className="text-sm text-gray-700 dark:text-gray-300">
                 Showing {startIndex + 1} to {Math.min(startIndex + usersPerPage, filteredUsers.length)} of {filteredUsers.length} users
