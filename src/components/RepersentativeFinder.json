@@ -1,0 +1,115 @@
+[
+  {
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "governing_body": "Brihanmumbai Municipal Corporation (BMC)",
+    "mayor": { "name": "Vacant (Administrator Rule)", "party": "N/A" },
+    "municipal_commissioner": { "name": "Dr. Iqbal Singh Chahal", "cadre": "IAS" },
+    "mlas": [
+      { "name": "Amin Patel", "constituency": "Mumbadevi", "party": "INC" },
+      { "name": "Ajay Chaudhari", "constituency": "Shivadi", "party": "Shiv Sena (UBT)" }
+    ],
+    "mps": [
+      { "name": "Arvind Sawant", "constituency": "Mumbai South", "party": "Shiv Sena (UBT)" }
+    ]
+  },
+  {
+    "city": "Delhi",
+    "state": "Delhi (NCT)",
+    "governing_body": "Municipal Corporation of Delhi (MCD)",
+    "mayor": { "name": "Shelly Oberoi", "party": "Aam Aadmi Party (AAP)" },
+    "municipal_commissioner": { "name": "Gyanesh Bharti", "cadre": "IAS" },
+    "mlas": [
+      { "name": "Arvind Kejriwal", "constituency": "New Delhi", "party": "AAP" },
+      { "name": "Atishi", "constituency": "Kalkaji", "party": "AAP" },
+      { "name": "Saurabh Bharadwaj", "constituency": "Greater Kailash", "party": "AAP" }
+    ],
+    "mps": [
+      { "name": "Manoj Tiwari", "constituency": "North East Delhi", "party": "BJP" },
+      { "name": "Gautam Gambhir", "constituency": "East Delhi", "party": "BJP" },
+      { "name": "Hans Raj Hans", "constituency": "North West Delhi", "party": "BJP" },
+      { "name": "Parvesh Sahib Singh Verma", "constituency": "West Delhi", "party": "BJP" },
+      { "name": "Ramesh Bidhuri", "constituency": "South Delhi", "party": "BJP" },
+      { "name": "Meenakashi Lekhi", "constituency": "New Delhi", "party": "BJP" },
+      { "name": "Harsh Vardhan", "constituency": "Chandni Chowk", "party": "BJP" }
+    ]
+  },
+  {
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "governing_body": "Bruhat Bengaluru Mahanagara Palike (BBMP)",
+    "mayor": { "name": "Vacant (Administrator Rule)", "party": "N/A" },
+    "municipal_commissioner": { "name": "Tushar Giri Nath", "cadre": "IAS" },
+    "mlas": [
+      { "name": "S. Suresh Kumar", "constituency": "Rajajinagar", "party": "BJP" }
+    ],
+    "mps": [
+      { "name": "Tejasvi Surya", "constituency": "Bangalore South", "party": "BJP" }
+    ]
+  },
+  {
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "governing_body": "Greater Chennai Corporation",
+    "mayor": { "name": "Priya Rajan", "party": "DMK" },
+    "municipal_commissioner": { "name": "J. Radhakrishnan", "cadre": "IAS" },
+    "mlas": [
+      { "name": "Udhayanidhi Stalin", "constituency": "Chepauk-Thiruvallikeni", "party": "DMK" }
+    ],
+    "mps": [
+      { "name": "Dayanidhi Maran", "constituency": "Chennai Central", "party": "DMK" }
+    ]
+  },
+  {
+    "city": "Kolkata",
+    "state": "West Bengal",
+    "governing_body": "Kolkata Municipal Corporation (KMC)",
+    "mayor": { "name": "Firhad Hakim", "party": "AITC" },
+    "municipal_commissioner": { "name": "Khalil Ahmed", "cadre": "IAS" },
+    "mlas": [
+      { "name": "Firhad Hakim", "constituency": "Kolkata Port", "party": "AITC" }
+    ],
+    "mps": [
+      { "name": "Sudip Bandyopadhyay", "constituency": "Kolkata Uttar", "party": "AITC" }
+    ]
+  },
+  {
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "governing_body": "Greater Hyderabad Municipal Corporation (GHMC)",
+    "mayor": { "name": "Vijaya Lakshmi R Gadwal", "party": "BRS" },
+    "municipal_commissioner": { "name": "Ronald Rose", "cadre": "IAS" },
+    "mlas": [
+      { "name": "Akbaruddin Owaisi", "constituency": "Chandrayangutta", "party": "AIMIM" }
+    ],
+    "mps": [
+      { "name": "Asaduddin Owaisi", "constituency": "Hyderabad", "party": "AIMIM" }
+    ]
+  },
+  {
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "governing_body": "Ahmedabad Municipal Corporation (AMC)",
+    "mayor": { "name": "Pratibha Jain", "party": "BJP" },
+    "municipal_commissioner": { "name": "M. Thennarasan", "cadre": "IAS" },
+    "mlas": [
+      { "name": "Rakesh Shah", "constituency": "Ellisbridge", "party": "BJP" }
+    ],
+    "mps": [
+      { "name": "Kirit Solanki", "constituency": "Ahmedabad West", "party": "BJP" }
+    ]
+  },
+  {
+    "city": "Pune",
+    "state": "Maharashtra",
+    "governing_body": "Pune Municipal Corporation (PMC)",
+    "mayor": { "name": "Vacant (Administrator Rule)", "party": "N/A" },
+    "municipal_commissioner": { "name": "Dr. Rajendra Bhosale", "cadre": "IAS" },
+    "mlas": [
+      { "name": "Sunil Kamble", "constituency": "Kasba Peth", "party": "BJP" }
+    ],
+    "mps": [
+      { "name": "Murlidhar Mohol", "constituency": "Pune", "party": "BJP" }
+    ]
+  }
+]

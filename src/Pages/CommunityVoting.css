@@ -5,6 +5,13 @@
   font-family: Arial, sans-serif;
   color: #111;
   background-color: #fff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode for main container */
+:root.dark .community-voting-container {
+  background-color: #0d131f;
+  color: #f3f4f6;
 }
 
 .back-button {
@@ -14,6 +21,11 @@
   cursor: pointer;
   font-size: 16px;
   margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+:root.dark .back-button {
+  color: #34d399;
 }
 
 .filter-bar {
@@ -24,9 +36,10 @@
   border-radius: 50px;
   margin: 20px 0;
   flex-wrap: wrap;
+  transition: background-color 0.3s ease;
 }
 
-body.dark .filter-bar {
+:root.dark .filter-bar {
   background: #1f2937;
 }
 
@@ -39,6 +52,11 @@ body.dark .filter-bar {
 .filter-section label {
   margin-right: 10px;
   font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+:root.dark .filter-section label {
+  color: #e5e7eb;
 }
 
 .filter-dropdown {
@@ -46,6 +64,19 @@ body.dark .filter-bar {
   border-radius: 20px;
   border: 1px solid #d1d5db;
   background: white;
+  color: #111;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+:root.dark .filter-dropdown {
+  background: #374151;
+  color: #f3f4f6;
+  border-color: #4b5563;
+}
+
+:root.dark .filter-dropdown option {
+  background: #374151;
+  color: #f3f4f6;
 }
 
 .issues-list {
@@ -58,6 +89,12 @@ body.dark .filter-bar {
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+:root.dark .issue-card {
+  background: #1f2937;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 .issue-header {
@@ -67,11 +104,22 @@ body.dark .filter-bar {
   margin-bottom: 15px;
 }
 
+:root.dark .issue-header h3 {
+  color: #f3f4f6;
+}
+
 .area-badge {
   background: #e5e7eb;
   padding: 5px 10px;
   border-radius: 15px;
   font-size: 14px;
+  color: #374151;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+:root.dark .area-badge {
+  background: #374151;
+  color: #e5e7eb;
 }
 
 .issue-metrics {
@@ -88,11 +136,21 @@ body.dark .filter-bar {
 .metric-label {
   font-size: 12px;
   color: #6b7280;
+  transition: color 0.3s ease;
+}
+
+:root.dark .metric-label {
+  color: #9ca3af;
 }
 
 .metric-value {
   font-weight: bold;
   font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+:root.dark .metric-value {
+  color: #f3f4f6;
 }
 
 .vote-section {
@@ -111,6 +169,19 @@ body.dark .filter-bar {
   display: flex;
   align-items: center;
   gap: 5px;
+  transition: background-color 0.3s ease;
+}
+
+:root.dark .vote-button {
+  background: #059669;
+}
+
+.vote-button:hover {
+  background: #059669;
+}
+
+:root.dark .vote-button:hover {
+  background: #047857;
 }
 
 .progress-bar {
@@ -119,13 +190,31 @@ body.dark .filter-bar {
   background: #e5e7eb;
   border-radius: 4px;
   overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+:root.dark .progress-bar {
+  background: #374151;
 }
 
 .progress-fill {
   height: 100%;
   background: #10b981;
   border-radius: 4px;
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+:root.dark .progress-fill {
+  background: #34d399;
+}
+
+/* Page heading styles for dark mode */
+:root.dark .community-voting-container h1 {
+  color: #f3f4f6;
+}
+
+:root.dark .community-voting-container p {
+  color: #d1d5db;
 }
 
 @media (max-width: 600px) {

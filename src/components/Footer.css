@@ -1,0 +1,134 @@
+/* Base footer styles for glassmorphism effect */
+.footer-glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  border-radius: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+/* Dark mode styles for the glassmorphism effect */
+.dark .footer-glass {
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(12px);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* --- Attractive Heading with Animated Underline --- */
+/* The multi-color animated text gradient */
+.heading-rainbow-gradient {
+  font-size: 1.25rem; /* text-xl in Tailwind */
+  line-height: 1.75rem; /* text-xl in Tailwind */
+  font-weight: 700; /* font-bold in Tailwind */
+
+  background: linear-gradient(
+    90deg,
+    #34d399, /* Emerald */
+    #10b981, /* Darker Emerald */
+    #3b82f6, /* Blue */
+    #8b5cf6, /* Violet */
+    #ec4899 /* Pink */
+  );
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent; /* Fallback for browsers that don't support the properties above */
+  animation: colorShift 10s ease infinite alternate;
+}
+
+/* The animated underline */
+.heading-underline {
+  position: relative;
+}
+
+.heading-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px; /* Thickness of the underline */
+  width: 0;
+  background: linear-gradient(
+    90deg,
+    #34d399, /* Emerald */
+    #10b981, /* Darker Emerald */
+    #3b82f6, /* Blue */
+    #8b5cf6, /* Violet */
+    #ec4899 /* Pink */
+  );
+  background-size: 400% 100%;
+  border-radius: 1.5px;
+  animation: growUnderline 0.8s ease-out forwards, colorShift 10s ease infinite alternate;
+  animation-delay: 0.2s; /* Delay the animation slightly after the text appears */
+}
+
+/* Keyframe animation to shift the gradient across the text */
+@keyframes colorShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Keyframe animation for the underline */
+@keyframes growUnderline {
+  0% {
+    width: 0;
+    transform: scaleX(0);
+  }
+  100% {
+    width: 100%; /* The underline grows to full width */
+    transform: scaleX(1);
+  }
+}
+
+/* --- Social Icons Enhancement --- */
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.dark .social-icon {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.social-icon:hover {
+  transform: scale(1.2) rotate(5deg);
+  background: linear-gradient(45deg, #34d399, #6ee7b7, #8b5cf6);
+  box-shadow: 0 4px 15px rgba(52, 211, 153, 0.3);
+  animation-play-state: paused;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* --- Links with a subtle bounce on hover --- */
+.link-bounce {
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+.link-bounce:hover {
+  transform: translateY(-2px);
+  color: #10b981;
+}
+
+.link-bounce:active {
+  transform: translateY(0);
+}

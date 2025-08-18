@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="./favv.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- SEO Meta Tags START -->
@@ -34,10 +34,15 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Civix - Local Civic Issue Reporting App</title>
+
+
+    <!-- //google font  -->
+     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
     
     <style>
       .navbar {
@@ -224,57 +229,11 @@
         </div>
     </div>
 
+
     
-<script>
-        const chatMessages = document.getElementById('chatMessages');
-        const userInput = document.getElementById('userInput');
-        const sendButton = document.getElementById('sendButton');
-
-       
-        function appendMessage(text, sender) {
-            const message = document.createElement('div');
-            message.classList.add('message', sender);
-            message.textContent = text;
-            chatMessages.appendChild(message);
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
-        }
-
-        
-        function handleUser Input() {
-            const userText = userInput.value.trim();
-            if (userText) {
-                appendMessage(userText, 'user');
-                userInput.value = ''; // Clear input field
-                botResponse(userText); // Get bot response
-            }
-        }
-
-       
-        function botResponse(userText) {
-            // Simple bot logic for demonstration
-            let botText = "I'm not sure how to respond to that.";
-            if (userText.toLowerCase().includes('hello')) {
-                botText = 'Hello! How can I assist you today?';
-            } else if (userText.toLowerCase().includes('help')) {
-                botText = 'Sure! What do you need help with?';
-            } else if (userText.toLowerCase().includes('bye')) {
-                botText = 'Goodbye! Have a great day!';
-            }
-
-            setTimeout(() => {
-                appendMessage(botText, 'bot');
-            }, 1000); // Simulate a delay for bot response
-        }
-
-        
-        sendButton.addEventListener('click', handleUser Input);
-
-        
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                handleUser Input();
-            }
-        });
-  </script>
+    <!-- Botpress Chatbot -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js" defer></script>
+    <script src="https://files.bpcontent.cloud/2025/08/11/16/20250811165945-K7V80VPH.js" defer></script>
+    
   </body>
 </html>

@@ -1,120 +1,134 @@
+const cluster = require("cluster");
+const os = require("os");
+const process = require("process");
 
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const xss = require('xss');
-const cookieParser = require('cookie-parser');
-const rateLimit = require('express-rate-limit');
-const initdb = require('./db/init');
-const authRoutes = require('./routes/auth');
-const issuesRoutes = require('./routes/issues');
-const errorHandler = require('./middlewares/errorHandler');
-const { specs, swaggerUi } = require('./config/swagger');
-require('dotenv').config();
+const numCPUs = os.cpus().length;
+if (cluster.isPrimary) {
+  console.log(`======================================`);
+  console.log(`Civix Backend Primary Process Started`);
+  console.log(`Primary PID:${process.pid}`);
+  console.log(`=======================================`);
+  console.log(`Forking server for ${numCPUs} CPU Cores...`);
 
-const app = express();
-
-// Initialize database
-initdb();
-
-// CORS configuration
-app.use(cors({
-  origin: ['http://localhost:3000', "https://civix-phi.vercel.app/login", "https://civix-phi.vercel.app/signup"],
-  credentials: true,
-}));
-
-// Security middlewares
-app.use(helmet());
-// Custom XSS protection middleware
-app.use((req, res, next) => {
-  if (req.body) {
-    for (let key in req.body) {
-      if (typeof req.body[key] === 'string') {
-        req.body[key] = xss(req.body[key]);
-      }
-    }
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
   }
-  next();
-});
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
-// Rate limiting middleware 
-const limiter = rateLimit({
+  cluster.on("online", (worker) => {
+    console.log(`Worker ${worker.process.pid} is online`);
+  });
+
+  cluster.on("exit", (worker, code, signal) => {
+    console.error(
+      `Worker ${worker.process.pid} died. Code: ${code}, Signal: ${signal}`
+    );
+    if (worker.exitedAfterDisconnect === true) {
+      console.log(
+        `Worker ${worker.process.pid} exited shutting down gracefully.`
+      );
+    } else {
+      console.log(
+        `Worker ${worker.process.pid} exited unexpectedly. Restarting...`
+      );
+      cluster.fork();
+    }
+  });
+} else {
+  const express = require("express");
+  const cors = require("cors");
+  const helmet = require("helmet");
+  const cookieParser = require("cookie-parser");
+  const rateLimit = require("express-rate-limit");
+  const path = require("path");
+  require("dotenv").config();
+
+  // Security middlewares
+  const { xssSanitizer } = require("./middlewares/xssSanitizer");
+  const {
+    skipCSRFForRoutes,
+    csrfErrorHandler,
+  } = require("./middlewares/csrfProtection");
+
+  const app = express();
+
+  // === Database Initialization ===
+
+  // Commented db.js import so that the app can run on MongoDB only to rectify the issue of multiple database connections
+
+  // require("./config/db.js");     // PostgreSQL
+  require("./config/mongo.js"); // MongoDB
+
+  // === Swagger Docs ===
+  const { swaggerUi, specs } = require("./config/swagger.js");
+
+  // === Middlewares ===
+  app.use(
+    cors({
+      origin: [
+        "http://localhost:3000",
+        "https://civix-phi.vercel.app/login",
+        "https://civix-phi.vercel.app/signup",
+      ],
+      credentials: true,
+    })
+  );
+  app.use(helmet());
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
+
+  // === Security Middlewares ===
+  // Global XSS Sanitization
+  app.use(xssSanitizer);
+
+  // CSRF Protection (skip for certain routes)
+  const csrfSkipRoutes = [
+    "/api/contributors", // Public read-only API
+    "/api-docs", // Swagger documentation
+    "/api/auth/webhook", // Potential webhooks (if any)
+  ];
+  app.use(skipCSRFForRoutes(csrfSkipRoutes));
+
+  app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+  // === Rate Limiting ===
+  const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-    message: 'Too many requests from this IP, please try again later.'
+    max: 100,
+    message: "Too many requests from this IP, please try again later.",
+  });
+  app.use(limiter);
 
-const express = require("express");
-const cors = require("cors");
-const helmet = require("helmet");
-const cookieParser = require("cookie-parser");
-const rateLimit = require("express-rate-limit");
-const path = require("path");
-require("dotenv").config();
+  // === Routes ===
+  const authRoutes = require("./routes/auth.js");
+  const issueRoutes = require("./routes/issues.js");
+  const profileRoutes = require("./routes/profileRoutes.js");
+  const contributionsRoutes = require("./routes/contributions.js");
 
-// Routes
-const authRoutes = require("./routes/auth");
-const issueRoutes = require("./routes/issues");
-const profileRoutes = require("./routes/profileRoutes");
+  // CSRF token endpoint
+  app.get("/api/csrf-token", (req, res) => {
+    res.json({ csrfToken: req.csrfToken() });
+  });
 
-// DB Configs
-require("./config/db");     // PostgreSQL
-require("./config/mongo");  // MongoDB
+  app.use("/api/auth", authRoutes);
+  app.use("/api/issues", issueRoutes);
+  app.use("/api/profile", profileRoutes);
+  app.use("/api/contributors", contributionsRoutes);
 
-// Middlewares
-const errorHandler = require("./middlewares/errorHandler");
-const { swaggerUi, specs } = require("./config/swagger");
+  // === Swagger API Docs ===
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
-const app = express();
+  // === Error Handlers ===
+  // CSRF Error Handler (must come before global error handler)
+  app.use(csrfErrorHandler);
 
-// Security + Body Parsers
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-app.use(helmet());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+  // Global Error Handler
+  const errorHandler = require("./middlewares/errorHandler.js");
+  app.use(errorHandler);
 
-// Static Files for uploads
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// Rate Limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: "Too many requests from this IP, please try again later.",
-
-});
-app.use(limiter);
-
-// Swagger Docs
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
-
-
-// Routes 
-app.use('/api/auth', authRoutes);
-app.use('/api/issues', issuesRoutes);
-
-// Error handling middleware
-app.use(errorHandler);
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/issues", issueRoutes);
-app.use("/api/profile", profileRoutes);
-
-// Error handler middleware
-app.use(errorHandler);
-
-
-// Start Server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(` Unified server running at http://localhost:${PORT}`);
-});
+  // === Start Server ===
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
+}

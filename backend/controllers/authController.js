@@ -1,10 +1,13 @@
 const z = require("zod");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const pool = require("../config/db");
+const pool = require("../config/mongo.js"); // Assuming you have a pool setup for MongoDB
 require("dotenv").config();
+const {asyncHandler}=require("../utils/asyncHandler")
 
-exports.signup = async (req, res) => {
+
+
+exports.signup = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return res.status(400).json({ error: "All fields are required" });
@@ -28,35 +31,31 @@ exports.signup = async (req, res) => {
 
   const role = email.endsWith(process.env.DOMAIN_NAME) ? "admin" : "user";
 
-  try {
-    const check = await pool.query(
-      "SELECT * FROM users WHERE email = $1 OR username = $2",
-      [email, username]
-    );
+  const check = await pool.query(
+    "SELECT * FROM users WHERE email = $1 OR username = $2",
+    [email, username]
+  );
 
-    if (check.rows.length > 0) {
-      const user = check.rows[0];
-      if (user.email === email) {
-        return res.status(409).json({ error: "Email already registered" });
-      }
-      if (user.username === username) {
-        return res.status(409).json({ error: "Username already taken" });
-      }
+  if (check.rows.length > 0) {
+    const user = check.rows[0];
+    if (user.email === email) {
+      return res.status(409).json({ error: "Email already registered" });
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await pool.query(
-      "INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, $4)",
-      [username, email, hashedPassword, role]
-    );
-
-    return res.status(201).json({ message: "User registered successfully" });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Error registering user" });
+    if (user.username === username) {
+      return res.status(409).json({ error: "Username already taken" });
+    }
   }
-};
-exports.login = async (req, res) => {
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  await pool.query(
+    "INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, $4)",
+    [username, email, hashedPassword, role]
+  );
+
+  return res.status(201).json({ message: "User registered successfully" });
+});
+
+exports.login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const loginSchema = z.object({
@@ -69,28 +68,25 @@ exports.login = async (req, res) => {
     return res.status(400).json({ error: validation.error.errors[0].message });
   }
 
-  try {
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
-    const user = result.rows[0];
+  const result = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+  const user = result.rows[0];
 
-    if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
-
-    const token = jwt.sign(
-      { email: user.email, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
-
-    return res.status(200).json({ token, message: "Login successful" });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Error during login" });
+  if (!user) {
+    return res.status(401).json({ error: "Invalid credentials" });
   }
-};
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    return res.status(401).json({ error: "Invalid credentials" });
+  }
+
+  const token = jwt.sign(
+    { email: user.email, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" }
+  );
+
+  return res.status(200).json({ token, message: "Login successful" });
+});
+
+

@@ -71,3 +71,5 @@ https://www.contributor-covenant.org/version/2/1/code_of_conduct.html
 
 For FAQ, see: https://www.contributor-covenant.org/faq  
 For translations: https://www.contributor-covenant.org/translations
+
+

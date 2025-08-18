@@ -1,0 +1,165 @@
+/* Enhanced QR Code Styling */
+.enhanced-qr-container {
+  position: relative;
+}
+
+.enhanced-qr-container::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(45deg, #10b981, #059669, #34d399, #6ee7b7);
+  border-radius: 24px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  animation: gradient-shift 3s ease-in-out infinite;
+}
+
+.enhanced-qr-container:hover::before {
+  opacity: 0.1;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background: linear-gradient(45deg, #10b981, #059669, #34d399, #6ee7b7);
+  }
+  25% {
+    background: linear-gradient(45deg, #059669, #34d399, #6ee7b7, #10b981);
+  }
+  50% {
+    background: linear-gradient(45deg, #34d399, #6ee7b7, #10b981, #059669);
+  }
+  75% {
+    background: linear-gradient(45deg, #6ee7b7, #10b981, #059669, #34d399);
+  }
+}
+
+.qr-code-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.qr-code-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.floating-icon-glow {
+  position: relative;
+}
+
+.floating-icon-glow::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(45deg, #10b981, #34d399);
+  border-radius: 50%;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  filter: blur(10px);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.floating-icon-glow:hover::before {
+  opacity: 0.6;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.6;
+  }
+}
+
+/* QR Code with better contrast */
+.qr-code-enhanced {
+  filter: contrast(1.1) brightness(1.05);
+  transition: all 0.3s ease;
+}
+
+.qr-code-enhanced:hover {
+  filter: contrast(1.2) brightness(1.1);
+  transform: scale(1.02);
+}
+
+/* App icon enhancement */
+.app-icon-container {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
+  border: 3px solid #ffffff;
+  box-shadow: 
+    0 4px 20px rgba(16, 185, 129, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.app-icon-bg {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #34d399 100%);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+    0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Download badges styling */
+.download-badge {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.download-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.download-badge.android {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+}
+
+/* Decorative elements */
+.decorative-dot {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .enhanced-qr-container {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+  .qr-code-enhanced {
+    width: 180px !important;
+    height: 180px !important;
+  }
+}

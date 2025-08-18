@@ -1,0 +1,14 @@
+
+Added a LICENSE file with the MIT License.
+Updated README.md to include a License section with a short, beginner-friendly description.
+Explained why the MIT License was chosen.
+✅ Why MIT License?
+The MIT License is:
+
+✅ Simple and permissive — easy for anyone to understand.
+✅ Allows free usage, modification, and sharing, even commercially.
+✅ Commonly used and trusted by open source projects.
+✅ Ideal for beginners who want others to build on their work without complexity.
+📦 Files Updated
+LICENSE → Added full MIT License text.
+README.md → Added a "License" section with a short explanation.

@@ -63,34 +63,7 @@ function ServerError() {
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-6 w-6 text-emerald-500"
-            >
-              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            <span className="text-xl font-bold">Civix</span>
-          </div>
-          <button
-            onClick={() => navigate('/')}
-            className="h-9 px-4 py-2 rounded-md text-sm font-medium bg-emerald-500 text-white hover:bg-emerald-600 transition-colors duration-300"
-          >
-            Go Home
-          </button>
-        </div>
-      </header>
+      
 
       <main className="flex-1 flex items-center justify-center py-8 px-4">
         <motion.div
