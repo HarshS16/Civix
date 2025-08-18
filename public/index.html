@@ -79,8 +79,56 @@
             display: flex;
             flex-direction: column;
             background-color: white;
-        }
+            
+    
+}
 
+.loader{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        animation: fadeIn 1s ease-in-out;
+      }
+      .loader-bot {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #43e97b, #38f9d7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        margin-bottom: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      }
+      .typing {
+        display: flex;
+        gap: 6px;
+        margin-top: 10px;
+      }
+      .typing span {
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        animation: bounce 1.2s infinite;
+      }
+      .typing span:nth-child(2) { animation-delay: 0.2s; }
+      .typing span:nth-child(3) { animation-delay: 0.4s; }
+      @keyframes bounce {
+        0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+        40% { transform: scale(1.2); opacity: 1; }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
         /* Chat header */
         .chat-header {
             background-color: #0ea5e9;
@@ -88,6 +136,7 @@
             padding: 10px;
             text-align: center;
             font-weight: bold;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
         }
 
         /* Chat messages area */
@@ -98,6 +147,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            
         }
 
         /* Individual message */
@@ -118,12 +168,15 @@
             background-color: #e5e5e5;
             color: black;
             align-self: flex-start;
+             background: linear-gradient(135deg, #43e97b, #38f9d7);
         }
 
         /* Input area */
         .chat-input {
             display: flex;
             border-top: 1px solid #ccc;
+             background: linear-gradient(135deg, #43e97b, #38f9d7);
+           
         }
 
         .chat-input input {
@@ -145,6 +198,13 @@
         .chat-input button:hover {
             background-color: #3b82f6;
         }
+        /* Chatbot Container */
+
+    
+.chat-bubble {
+    background: rgba(255, 255, 255, 0.9); 
+}
+
     </style>
     <!-- Chatbot  -->
     <script src="https://cdn.botpress.cloud/webchat/v3.0/inject.js" defer></script>
@@ -156,6 +216,11 @@
         <div class="chat-input">
             <input type="text" id="userInput" placeholder="Type a message..." />
             <button id="sendButton">Send</button>
+             <div class="loader-bot">🤖</div>
+        CivixBot is starting...
+        <div class="typing">
+          <span></span><span></span><span></span>
+        </div>
         </div>
     </div>
 

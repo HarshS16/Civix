@@ -218,6 +218,67 @@ body {
   }
 }
 
+/* Chatbot Container */
+.chat-container {
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Existing gradient */
+  border-radius: 20px; /* More rounded for a modern feel */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  max-width: 420px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
+  color: #ffffff;
+  animation: fadeInUp 0.6s ease-out; /* Entry animation */
+}
+
+/* Chat Bubbles */
+.chat-bubble {
+  background: linear-gradient(135deg, #ffffff, #e3f2fd);
+  color: #333;
+  padding: 12px 16px;
+  border-radius: 16px;
+  margin: 10px 0;
+  max-width: 75%;
+  position: relative;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  animation: fadeSlideUp 0.4s ease-out; /* Smooth bubble animation */
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  color: white;
+}
+
+/* Typing indicator dots */
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin: 8px 0;
+}
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: bounce 1.2s infinite;
+}
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+/* Keyframes */
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 @media (min-width: 1024px) {
   .lg\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -90,6 +90,54 @@ function Home() {
     }
 
   ]
+  {/* Chatbot Section */}
+<section className="py-16 bg-slate-50 dark:bg-gray-900">
+  <div className="container flex flex-col items-center">
+    <h2 className="text-3xl font-bold mb-8 dark:text-white">💬 Chat with CivixBot</h2>
+    
+    <div className="chat-container flex flex-col h-[520px] w-full max-w-[420px] shadow-xl">
+      
+      {/* Header */}
+      <div className="flex items-center justify-between bg-white/20 backdrop-blur-md p-3 rounded-t-xl">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-emerald-400 flex items-center justify-center text-white font-bold">C</div>
+          <div>
+            <p className="font-semibold">CivixBot</p>
+            <p className="text-xs text-emerald-200">Online</p>
+          </div>
+        </div>
+        <button className="text-white text-xs bg-red-500 px-3 py-1 rounded-md hover:bg-red-600 transition">
+          End Chat
+        </button>
+      </div>
+
+      {/* Chat area */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-white/10 rounded-b-xl">
+        <div className="chat-bubble">Hi 👋, I’m CivixBot. How can I help you today?</div>
+        <div className="chat-bubble user">I want to report a pothole.</div>
+        <div className="chat-bubble">🚧 Sure! Please share the location or upload a photo, and I’ll guide you through reporting it.</div>
+
+        {/* Typing indicator */}
+        <div className="typing-indicator ml-2">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      {/* Input area */}
+      <div className="flex items-center gap-2 bg-white/20 backdrop-blur-md p-3 rounded-b-xl">
+        <input 
+          type="text" 
+          placeholder="Type your message..." 
+          className="flex-1 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none"
+        />
+        <button className="bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition">
+          ➤
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   // Render Home Page UI with JSX
   return (
