@@ -18,12 +18,12 @@ import {
   CheckCircle,
   ExternalLink,
   Rss,
-  Twitter,
   Linkedin,
   Youtube,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import logoF from "../assets/logo.png";
+import { ReactComponent as XLogo } from "../assets/XLogo.svg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -49,11 +49,12 @@ const Footer = () => {
         "hover:bg-gray-900 dark:hover:bg-gray-100 hover:text-white dark:hover:text-gray-900",
     },
     {
-      name: "Twitter",
-      href: "https://twitter.com/civix",
-      icon: Twitter,
-      description: "Follow us on Twitter",
-      color: "hover:bg-blue-400 hover:text-white",
+      name: "X",
+      href: "https://x.com/civix",
+      icon: XLogo,
+      description: "Follow us on X",
+      color:
+        "hover:bg-gray-900 dark:hover:bg-gray-100 hover:text-white dark:hover:text-gray-900",
     },
     {
       name: "LinkedIn",
@@ -503,7 +504,6 @@ const Footer = () => {
             <div className="space-y-4">
               <p className="text-slate-600 dark:text-slate-300 text-sm">
                 Subscribe to get updates on new features
-               
               </p>
 
               {isSubscribed ? (
@@ -553,7 +553,7 @@ const Footer = () => {
               )}
 
               <p className="text-xs text-slate-500 dark:text-slate-400">
-               Unsubscribe at any time.
+                Unsubscribe at any time.
               </p>
             </div>
           </div>
