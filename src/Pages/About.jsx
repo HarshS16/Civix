@@ -203,8 +203,8 @@ function About() {
                         <div className="relative mb-5 w-14 h-14 rounded-xl flex items-center justify-center bg-green-50 text-green-600">
                           {feature.icon}
                         </div>
-                        <h3 className="text-lg font-semibold mb-3">{feature.title}</h3>
-                        <p className="text-sm mb-3">{feature.description}</p>
+                        <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-100 group-hover:dark:text-gray-800">{feature.title}</h3>
+                        <p className="text-sm mb-3 text-gray-600 dark:text-gray-200 group-hover:dark:text-gray-600">{feature.description}</p>
                         {activeFeature === index && (
                           <p className="text-xs text-slate-500">{feature.details}</p>
                         )}
