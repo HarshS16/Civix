@@ -56,8 +56,9 @@ if (cluster.isPrimary) {
   // Commented db.js import so that the app can run on MongoDB only to rectify the issue of multiple database connections
 
   // require("./config/db.js");     // PostgreSQL
-  require("./config/mongo.js"); // MongoDB
+  require("./config/mongo.js");
 
+require("./models/Notification");
   // === Swagger Docs ===
   const { swaggerUi, specs } = require("./config/swagger.js");
 
@@ -104,7 +105,7 @@ if (cluster.isPrimary) {
   const issueRoutes = require("./routes/issues.js");
   const profileRoutes = require("./routes/profileRoutes.js");
   const contributionsRoutes = require("./routes/contributions.js");
-
+  const notificationRoutes = require("./routes/notificationRoutes.js"); 
   // CSRF token endpoint
   app.get("/api/csrf-token", (req, res) => {
     res.json({ csrfToken: req.csrfToken() });
@@ -114,7 +115,7 @@ if (cluster.isPrimary) {
   app.use("/api/issues", issueRoutes);
   app.use("/api/profile", profileRoutes);
   app.use("/api/contributors", contributionsRoutes);
-
+  app.use("/api/notifications", notificationRoutes);
   // === Swagger API Docs ===
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
